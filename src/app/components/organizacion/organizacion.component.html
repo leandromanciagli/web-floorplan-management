@@ -1,0 +1,203 @@
+<!-- Modal Gestionar Organizacion -->
+<ng-template #modalGestionOrganizacion let-modal>
+    <div class="modal-header">
+        <h1 class="modal-title fs-5 main-color">
+            <ng-container *ngIf="!organizacionIdSeleccionada; else updateTitle">
+                <b>Registrar organización</b>
+            </ng-container>
+            <ng-template #updateTitle>
+                <b>Editar organización</b>
+            </ng-template>
+        </h1>
+        <button type="button" class="btn-close" (click)="closeModalGestionOrganizacion()"></button>
+    </div>
+    <form [formGroup]="organizacionForm" (ngSubmit)="manageOrganizacion()" autocomplete="off">
+        <div class="modal-body px-5 d-flex flex-column gap-3">
+            <div class="row">
+                <div class="col">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" formControlName="nombre">
+                    <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert">
+                        <div *ngIf="nombre.hasError('required')">
+                            El nombre es requerido.
+                        </div>
+                        <div *ngIf="nombre.hasError('minlength')">
+                            El nombre debe contener al menos 2 caracteres.
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="direccion" class="form-label">Dirección</label>
+                    <input type="text" class="form-control" id="direccion" formControlName="direccion">
+                    <div *ngIf="direccion.invalid && (direccion.dirty || direccion.touched)" class="alert">
+                        <div *ngIf="direccion.hasError('required')">
+                            La dirección es requerida.
+                        </div>
+                        <div *ngIf="direccion.hasError('minlength')">
+                            La dirección debe contener al menos 2 caracteres.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="row">
+                <div class="col">
+                    <label for="provincia" class="form-label">Provincia</label>
+                    <select class="form-select" id="provincia" formControlName="provincia">
+                        <option *ngFor="let provincia of provincias" [value]="provincia.provinciaId">{{ provincia.nombre }}</option>
+                    </select>
+                    <div *ngIf="provincia.invalid && (provincia.dirty || provincia.touched)" class="alert">
+                        <div *ngIf="provincia.hasError('required')">
+                            La provincia es requerida.
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="ciudad" class="form-label">Ciudad</label>
+                    <select class="form-select" id="ciudad" formContciudadName="ciudad">
+                        <option *ngFor="let ciudad of ciudades" [value]="ciudad.ciudadId">{{ ciudad.nombre }}</option>
+                    </select>
+                    <div *ngIf="ciudad.invalid && (ciudad.dirty || ciudad.touched)" class="alert">
+                        <div *ngIf="ciudad.hasError('required')">
+                            La ciudad es requerida.
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="row">
+                <div class="col">
+                    <label for="provincia" class="form-label">Provincia</label>
+                    <input type="text" class="form-control" id="provincia" formControlName="provincia">
+                    <div *ngIf="provincia.invalid && (provincia.dirty || provincia.touched)" class="alert">
+                        <div *ngIf="provincia.hasError('required')">
+                            La provincia es requerida.
+                        </div>
+                        <div *ngIf="provincia.hasError('minlength')">
+                            La provincia debe contener al menos 2 caracteres.
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="ciudad" class="form-label">Ciudad</label>
+                    <input type="text" class="form-control" id="ciudad" formControlName="ciudad">
+                    <div *ngIf="ciudad.invalid && (ciudad.dirty || ciudad.touched)" class="alert">
+                        <div *ngIf="ciudad.hasError('required')">
+                            La ciudad es requerida.
+                        </div>
+                        <div *ngIf="ciudad.hasError('minlength')">
+                            La ciudad debe contener al menos 2 caracteres.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label for="email1" class="form-label">Email 1</label>
+                    <input type="email" class="form-control" id="email1" formControlName="email1">
+                    <div *ngIf="email1.invalid && (email1.dirty || email1.touched)" class="alert">
+                        <div *ngIf="email1.hasError('email')">
+                            El email es inválido.
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="email2" class="form-label">Email 2</label>
+                    <input type="email" class="form-control" id="email2" formControlName="email2">
+                    <div *ngIf="email2.invalid && (email2.dirty || email2.touched)" class="alert">
+                        <div *ngIf="email2.hasError('email')">
+                            El email es inválido.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="telefono1" class="form-label">Teléfono 1</label>
+                    <input type="text" class="form-control" id="telefono1" formControlName="telefono1">
+                    <div *ngIf="telefono1.invalid && (telefono1.dirty || telefono1.touched)" class="alert">
+                        <div *ngIf="telefono1.hasError('pattern')">
+                            El teléfono sólo puede contener números.
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="telefono2" class="form-label">Teléfono 2</label>
+                    <input type="text" class="form-control" id="telefono2" formControlName="telefono2">
+                    <div *ngIf="telefono2.invalid && (telefono2.dirty || telefono2.touched)" class="alert">
+                        <div *ngIf="telefono2.hasError('pattern')">
+                            El teléfono sólo puede contener números.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeModalGestionOrganizacion()">Cancelar</button>
+            <button type="submit" class="btn btn-primary" ngbAutofocus [disabled]="!organizacionForm.valid">
+                <ng-container *ngIf="!organizacionIdSeleccionada; else updateAction">
+                    Registrar organización
+                </ng-container>
+                <ng-template #updateAction>
+                    Editar organización
+                </ng-template>
+            </button>
+        </div>
+    </form>
+</ng-template>
+
+<div class="d-flex justify-content-between align-items-center my-4">
+    <h2 class="m-0 main-color"><b>Organizaciones</b></h2>
+    <button type="button" class="d-flex align-items-center gap-2 btn btn-primary bg-accent-color text-white"
+        (click)="openModalGestionOrganizacion(modalGestionOrganizacion)">
+        <img src="ico-plus.png" style="width: 30px; height: auto;">
+        <b>Registrar organización</b>
+    </button>
+</div>
+
+<table class="table" *ngIf="organizaciones.length > 0; else organizacionesEmptyTableMessage">
+    <thead>
+        <tr>
+            <th class="text-center">Nombre</th>
+            <th class="text-center">Dirección</th>
+            <th class="text-center">Ciudad</th>
+            <th class="text-center">Provincia</th>
+            <th class="text-center">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let organizacion of organizaciones">
+            <td class="align-middle text-center">{{ organizacion.nombre }}</td>
+            <td class="align-middle text-center">{{ organizacion.direccion }}</td>
+            <td class="align-middle text-center">{{ organizacion.ciudad }}</td>
+            <td class="align-middle text-center">{{ organizacion.provincia}}</td>
+            <td class="d-flex justify-content-center gap-2">
+                <!-- <button type="button" class="btn btn-primary btn-circle" data-bs-dismiss="modal">
+                    <img src="ico-view.png">
+                </button> -->
+                <button type="button" class="btn btn-circle btn-primary" ngbTooltip="Editar organización" placement="top"
+                    (click)="openModalGestionOrganizacion(modalGestionOrganizacion, organizacion)">
+                    <img src="ico-edit.png">
+                </button>
+                <button 
+                    type="button" 
+                    class="btn btn-circle btn-warning" 
+                    placement="top"
+                    ngbTooltip="Eliminar organización"
+                    (click)="deleteOrganizacion(organizacion)"
+                    data-cy="delete-organizacion"
+                    [disabled]="organizacion.cantidadUsuarios > 0"
+                >
+                    <img src="ico-delete.png">
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<ng-template #organizacionesEmptyTableMessage>
+    <td *ngIf="!(loading$ | async)" class="d-flex justify-content-center align-items-center"
+        data-cy="empty-table-message">
+        <h4 class="secondary-color">No hay organizaciones aún. Aquí aparecerán las organizaciones registradas.</h4>
+    </td>
+</ng-template>

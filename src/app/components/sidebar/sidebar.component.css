@@ -1,0 +1,12 @@
+.sidebar-border {
+    border-radius: 0px 20px 20px 0px;
+}
+
+a {
+    color: var(--main-color);
+    text-decoration: none;
+}
+
+a:hover{
+    font-weight: 500;
+}

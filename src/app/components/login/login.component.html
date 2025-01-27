@@ -1,0 +1,16 @@
+<div class="login d-flex justify-content-center align-items-center vh-100 flex-column">
+    <div class="d-flex justify-content-center align-items-center ">
+        <div class="w-50 p-5">
+            <h1 class="text-white">Floorplan Management System</h1>
+            <span class="text-white">Gestiona proyectos y planos de construcción de forma eficiente, flexible y colaborativa para múltiples organizaciones</span>
+        </div>
+        <div>
+            <img class="app-icon" src="ico-app.png" alt="Floorplan Management System">
+        </div>
+    </div>
+    <div *ngIf="!(authService.isAuthenticated$ | async)">
+        <button class="btn btn-primary" (click)="login()">
+            <span class="m-5">Iniciar Sesión</span>
+        </button>
+    </div>
+</div>

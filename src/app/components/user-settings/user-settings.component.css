@@ -1,0 +1,7 @@
+.btn:hover {
+    background-color: var(--bg-color);
+}
+
+.btn.show {
+    background-color: var(--bg-color);
+}

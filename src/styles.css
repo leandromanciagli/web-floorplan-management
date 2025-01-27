@@ -1,1 +1,120 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+    --bg-color: #F7F7F2;
+    --main-color: #3B6472;
+    --secondary-color: #a39fa7;
+    --accent-color: #67B1CE;
+    --warning-color: #e98a6a;
+    border: 0px !important;
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+body {
+    padding: 0px !important;
+    font-family: "Raleway", sans-serif !important;
+}
+
+th,
+td {
+    background-color: var(--bg-color) !important;
+}
+
+th {
+    color: var(--main-color) !important;
+}
+
+.bg-color {
+    background-color: var(--bg-color);
+}
+
+.bg-main-color {
+    background-color: var(--main-color);
+}
+
+.bg-accent-color {
+    background-color: var(--accent-color);
+}
+
+.bg-secondary-color {
+    background-color: var(--secondary-color);
+}
+
+.main-color {
+    color: var(--main-color);
+}
+
+.accent-color {
+    color: var(--accent-color);
+}
+
+.secondary-color {
+    color: var(--secondary-color);
+}
+
+.btn {
+    border: none !important;
+}
+
+.btn:hover {
+    box-shadow: 0px 4px 13.9px 1px rgba(0, 0, 0, 0.2);
+}
+
+.btn-circle {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-primary {
+    background-color: var(--main-color) !important;
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color) !important;
+}
+
+.btn-warning {
+    background-color: var(--warning-color) !important;
+}
+
+.tooltip-inner {
+    background-color: #5a5a5a;
+}
+
+.ngb-dp-arrow-btn {
+    color: var(--accent-color);
+}
+
+.ngb-dp-arrow-btn:hover {
+    color: var(--accent-color);
+}
+
+.ngb-dp-weekday.small {
+    color: var(--main-color);
+    font-weight: 600;
+}
+
+.bg-primary {
+    background-color: var(--accent-color) !important;
+}
+
+.form-control:hover,
+.form-select:hover {
+    border-color: var(--secondary-color);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 .25rem rgba(217, 176, 8, 0.502)
+}
+
+.alert {
+    margin: 1px 0 0 0;
+    padding: 2px 3px;
+    font-size: 12px;
+    color: red;
+}

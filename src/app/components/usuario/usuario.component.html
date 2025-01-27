@@ -1,0 +1,198 @@
+<!-- Modal Gestionar Usuario -->
+<ng-template #modalGestionUsuario let-modal>
+    <div class="modal-header">
+        <h1 class="modal-title fs-5 main-color">
+            <ng-container *ngIf="!usuarioIdSeleccionado; else updateTitle">
+                <b>Registrar usuario</b>
+            </ng-container>
+            <ng-template #updateTitle>
+                <b>Editar usuario</b>
+            </ng-template>
+        </h1>
+        <button type="button" class="btn-close" (click)="closeModalGestionUsuario()"></button>
+    </div>
+    <form [formGroup]="usuarioForm" (ngSubmit)="manageUsuario()" autocomplete="off" data-cy=usuario-form>
+        <div class="modal-body px-5 d-flex flex-column gap-3">
+            <div class="row">
+                <div class="col">
+                    <label for="apellido" class="form-label">Apellido</label>
+                    <input type="text" class="form-control" id="apellido" formControlName="apellido" data-cy="apellido">
+                    <div *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)"
+                        class="alert">
+                        <div *ngIf="apellido.hasError('required')">
+                            El apellido es requerido.
+                        </div>
+                        <div *ngIf="apellido.hasError('minlength')">
+                            El apellido debe contener al menos 2 caracteres.
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" formControlName="nombre" data-cy="nombre">
+                    <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert">
+                        <div *ngIf="nombre.hasError('required')">
+                            El nombre es requerido.
+                        </div>
+                        <div *ngIf="nombre.hasError('minlength')">
+                            El nombre debe contener al menos 2 caracteres.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="dni" class="form-label">DNI</label>
+                    <input type="text" class="form-control" id="dni" formControlName="dni" data-cy="dni">
+                    <div *ngIf="dni.invalid && (dni.dirty || dni.touched)" class="alert">
+                        <div *ngIf="dni.hasError('pattern')">
+                            El DNI sólo puede contener números.
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" formControlName="email" data-cy="email">
+                    <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert">
+                        <div *ngIf="email.hasError('email')">
+                            El email es inválido.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="username" class="form-label">Nombre de usuario</label>
+                    <input type="text" class="form-control" id="username" formControlName="username" data-cy="username">
+                    <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert">
+                        <div *ngIf="username.hasError('required')">
+                            El nombre de usuario es requerido.
+                        </div>
+                        <div *ngIf="username.hasError('minlength')">
+                            El nombre de usuario debe tener al menos 2 caracteres.
+                        </div>
+                        <div *ngIf="username.hasError('pattern')">
+                            El nombre de usuario no puede contener espacios.
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="password" class="form-label">Contraseña</label>
+                    <div class="input-group">
+                        <input [type]="inputPasswordType" class="form-control" id="password" formControlName="password" data-cy="password">
+                        <button type="button" class="input-group-text" (click)="changeEyePasswordIco()">
+                            <img [src]="passwordEyeIcon">
+                        </button>
+                    </div>
+                    <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert">
+                        <div *ngIf="password.hasError('required')">
+                            La contraseña es requerida.
+                        </div>
+                        <div *ngIf="password.hasError('pattern')">
+                            La contraseña debe tener entre 8 y 20 caracteres, al menos una letra, un número y un
+                            caracter especial.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="organizacion" class="form-label">Organización</label>
+                    <select class="form-select" id="organizacion" formControlName="organizacion" data-cy="organizacion">
+                        <option *ngFor="let organizacion of organizaciones" [value]="organizacion.organizacionId">{{
+                            organizacion.nombre }}</option>
+                    </select>
+                    <div *ngIf="organizacion.invalid && (organizacion.dirty || organizacion.touched)" class="alert">
+                        <div *ngIf="organizacion.hasError('required')">
+                            La organizacion es requerida.
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="rol" class="form-label">Rol</label>
+                    <select class="form-select" id="rol" formControlName="rol">
+                        <option *ngFor="let rol of roles" [value]="rol.rolId">{{ rol.nombre }}</option>
+                    </select>
+                    <div *ngIf="rol.invalid && (rol.dirty || rol.touched)" class="alert">
+                        <div *ngIf="rol.hasError('required')">
+                            El rol es requerido.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="closeModalGestionUsuario()">Cancelar</button>
+            <button type="submit" 
+                class="btn btn-primary" 
+                ngbAutofocus 
+                [disabled]="!usuarioForm.valid"
+                data-cy="action-button"
+            >
+                <ng-container *ngIf="!usuarioIdSeleccionado; else updateAction">
+                    Registrar usuario
+                </ng-container>
+                <ng-template #updateAction>
+                    Editar usuario
+                </ng-template>
+            </button>
+        </div>
+    </form>
+</ng-template>
+
+<div class="d-flex justify-content-between align-items-center my-4">
+    <h2 class="m-0 main-color"><b>Usuarios</b></h2>
+    <button 
+        type="button" 
+        class="d-flex align-items-center gap-2 btn btn-primary bg-accent-color text-white"
+        (click)="openModalGestionUsuario(modalGestionUsuario)"
+        data-cy="registrar-usuario"
+    >
+        <img src="ico-plus.png" style="width: 30px; height: auto;">
+        <b>Registrar usuario</b>
+    </button>
+</div>
+
+<table class="table" *ngIf="usuarios.length > 0; else usuariosEmptyTableMessage">
+    <thead>
+        <tr>
+            <th class="text-center">Nombre y apellido</th>
+            <th class="text-center">DNI</th>
+            <th class="text-center">Nombre de usuario</th>
+            <th class="text-center">Rol</th>
+            <th class="text-center">Email</th>
+            <th class="text-center">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+            <tr *ngFor="let usuario of usuarios">
+                <td class="align-middle text-center">{{ usuario.apellido }}, {{ usuario.nombre }}</td>
+                <td class="align-middle text-center">{{ usuario.dni }}</td>
+                <td class="align-middle text-center">{{ usuario.username }}</td>
+                <td class="align-middle text-center">{{ usuario.rol.nombre }}</td>
+                <td class="align-middle text-center">{{ usuario.email ? usuario.email : '-' }}</td>
+                <td class="d-flex justify-content-center gap-2">
+                <!-- <button type="button" class="btn btn-primary btn-circle" data-bs-dismiss="modal">
+                            <img src="ico-view.png">
+                        </button> -->
+                <button type="button" class="btn btn-circle btn-primary" ngbTooltip="Editar usuario" placement="top"
+                    (click)="openModalGestionUsuario(modalGestionUsuario, usuario)">
+                    <img src="ico-edit.png">
+                </button>
+                <button type="button" class="btn btn-circle btn-warning" ngbTooltip="Eliminar usuario" placement="top"
+                    (click)="deleteUsuario(usuario)">
+                    <img src="ico-delete.png">
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<ng-template #usuariosEmptyTableMessage>
+    <td 
+        *ngIf="!(loading$ | async)" 
+        class="d-flex justify-content-center align-items-center"
+        data-cy="empty-table-message"
+    >
+        <h4 class="secondary-color">No hay usuarios aún. Aquí aparecerán los usuarios registrados.</h4>
+    </td>
+</ng-template>
