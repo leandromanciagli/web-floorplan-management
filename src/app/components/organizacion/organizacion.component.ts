@@ -85,7 +85,19 @@ export class OrganizacionComponent {
 
   async loadProvincias() {
     this.store.dispatch(showLoader());
-    this.provincias = this.provinciaService.getAll();
+    this.provinciaService.getAll().subscribe(
+      {
+        next: (data) => {
+          this.provincias = data;
+          this.store.dispatch(hideLoader());
+        },
+        error: async (e) => {
+          console.log(e);
+          this.store.dispatch(hideLoader());
+          await this.swal.displayErrorMessage()
+        }
+      }
+    );
   }
 
   manageOrganizacion() {
