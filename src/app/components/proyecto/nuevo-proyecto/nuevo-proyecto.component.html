@@ -1,0 +1,262 @@
+<div class="d-flex justify-content-between align-items-center my-4">
+    <h2 class="m-0 main-color"><b>Nuevo proyecto de construcción</b></h2>
+</div>
+<form [formGroup]="proyectoDeConstruccionForm" (ngSubmit)="manageProyecto()" autocomplete="off">
+    <ul ngbNav #nav="ngbNav" [(activeId)]="currentStep" class="nav-tabs">
+        <li [ngbNavItem]="1">
+            <button ngbNavLink>1. Datos del proyecto</button>
+            <ng-template ngbNavContent>
+                <div class="mt-3" formGroupName="proyecto">
+                    <div class="row mb-3">
+                        <div class="col-8">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombre" formControlName="nombre">
+                            <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert">
+                                <div *ngIf="nombre.hasError('required')">
+                                    El nombre es requerido.
+                                </div>
+                                <div *ngIf="nombre.hasError('minlength')">
+                                    El nombre debe contener al menos 2 caracteres.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <label for="nroExpediente" class="form-label">Expediente</label>
+                            <input type="text" class="form-control" id="nroExpediente" formControlName="nroExpediente">
+                            <div *ngIf="nroExpediente.invalid && (nroExpediente.dirty || nroExpediente.touched)" class="alert">
+                                <div *ngIf="nroExpediente.hasError('required')">
+                                    El expediente es requerido.
+                                </div>
+                                <div *ngIf="nroExpediente.hasError('minlength')">
+                                    El expediente debe contener al menos 2 caracteres.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="provincia" class="form-label">Provincia</label>
+                            <select class="form-select" id="provincia" formControlName="provincia">
+                                <option *ngFor="let provincia of provincias" [value]="provincia.provinciaId">{{
+                                    provincia.nombre }}</option>
+                            </select>
+                            <div *ngIf="provincia.invalid && (provincia.dirty || provincia.touched)" class="alert">
+                                <div *ngIf="provincia.hasError('required')">
+                                    La provincia es requerida.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="ciudad" class="form-label">Ciudad</label>
+                            <input type="text" class="form-control" id="ciudad" formControlName="ciudad">
+                            <div *ngIf="ciudad.invalid && (ciudad.dirty || ciudad.touched)" class="alert">
+                                <div *ngIf="ciudad.hasError('required')">
+                                    La dirección es requerido.
+                                </div>
+                                <div *ngIf="ciudad.hasError('minlength')">
+                                    La dirección debe contener al menos 2 caracteres.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="ubicacion" class="form-label">Ubicación</label>
+                            <input type="text" class="form-control" id="ubicacion" formControlName="ubicacion">
+                            <div *ngIf="ubicacion.invalid && (ubicacion.dirty || ubicacion.touched)" class="alert">
+                                <div *ngIf="ubicacion.hasError('required')">
+                                    La ubicación es requerida.
+                                </div>
+                                <div *ngIf="ubicacion.hasError('minlength')">
+                                    La ubicación debe contener al menos 2 caracteres.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="tipoObra" class="form-label">Tipo de obra</label>
+                            <select class="form-select" id="tipoObra" formControlName="tipoObra">
+                                <option *ngFor="let tipoObra of tiposObra" [value]="tipoObra.tipoObraId">{{ tipoObra.nombre
+                                    }}</option>
+                            </select>
+                            <div *ngIf="tipoObra.invalid && (tipoObra.dirty || tipoObra.touched)" class="alert">
+                                <div *ngIf="tipoObra.hasError('required')">
+                                    El tipo de obra es requerido.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="destino" class="form-label">Destino</label>
+                            <select class="form-select" id="destino" formControlName="destino">
+                                <option *ngFor="let destino of destinos" [value]="destino.destinoId">{{ destino.nombre }}
+                                </option>
+                            </select>
+                            <div *ngIf="destino.invalid && (destino.dirty || destino.touched)" class="alert">
+                                <div *ngIf="destino.hasError('required')">
+                                    El destino es requerido.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="escala" class="form-label">Escala</label>
+                            <input type="text" class="form-control" id="escala" formControlName="escala">
+                            <div *ngIf="escala.invalid && (escala.dirty || escala.touched)" class="alert">
+                                <div *ngIf="escala.hasError('required')">
+                                    La escala es requerida.
+                                </div>
+                                <div *ngIf="escala.hasError('minlength')">
+                                    La escala debe contener al menos 2 caracteres.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="antecedentes" class="form-label">Antecedentes</label>
+                            <textarea class="form-control" id="antecedentes" formControlName="antecedentes"></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="referencias" class="form-label">Referencias</label>
+                            <textarea class="form-control" id="referencias" formControlName="referencias"></textarea>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="otrasExigencias" class="form-label">Otras exigencias</label>
+                            <textarea class="form-control" id="otrasExigencias" formControlName="otrasExigencias"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </li>
+        <li [ngbNavItem]="2">
+            <button ngbNavLink>2. Datos del propietario</button>
+            <ng-template ngbNavContent>
+                <div class="mt-3" formGroupName="propietario">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="apellido" class="form-label">Apellido</label>
+                            <input type="text" class="form-control" id="apellido" formControlName="apellido">
+                            <div *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)" class="alert">
+                                <div *ngIf="apellido.hasError('required')">
+                                    El apellido es requerido.
+                                </div>
+                                <div *ngIf="apellido.hasError('minlength')">
+                                    El apellido debe contener al menos 2 caracteres.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="nombres" class="form-label">Nombres</label>
+                            <input type="text" class="form-control" id="nombres" formControlName="nombres">
+                            <div *ngIf="nombres.invalid && (nombres.dirty || nombres.touched)" class="alert">
+                                <div *ngIf="nombres.hasError('required')">
+                                    El nombres es requerido.
+                                </div>
+                                <div *ngIf="nombres.hasError('minlength')">
+                                    El nombres debe contener al menos 2 caracteres.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="dni" class="form-label">DNI</label>
+                            <input type="text" class="form-control" id="dni" formControlName="dni">
+                            <div *ngIf="dni.invalid && (dni.dirty || dni.touched)" class="alert">
+                                <div *ngIf="dni.hasError('pattern')">
+                                    El DNI sólo puede contener números.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="domicilio" class="form-label">Domicilio</label>
+                            <input type="text" class="form-control" id="domicilio" formControlName="domicilio">
+                            <div *ngIf="domicilio.invalid && (domicilio.dirty || domicilio.touched)" class="alert">
+                                <div *ngIf="domicilio.hasError('required')">
+                                    El domicilio es requerido.
+                                </div>
+                                <div *ngIf="domicilio.hasError('minlength')">
+                                    El domicilio debe contener al menos 2 caracteres.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="telefono" class="form-label">Teléfono</label>
+                            <input type="text" class="form-control" id="telefono" formControlName="telefono">
+                            <div *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)" class="alert">
+                                <div *ngIf="telefono.hasError('pattern')">
+                                    El teléfono sólo puede contener números.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" formControlName="email" data-cy="email">
+                            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert">
+                                <div *ngIf="email.hasError('email')">
+                                    El email es inválido.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </li>
+        <li [ngbNavItem]="3">
+            <button ngbNavLink>3. Proyectistas</button>
+            <ng-template ngbNavContent>
+                <h5>3. Proyectistas</h5>
+                <p>
+                    Formulario para paso 3
+                </p>
+            </ng-template>
+        </li>
+        <li [ngbNavItem]="4">
+            <button ngbNavLink>4. Dirección técnica</button>
+            <ng-template ngbNavContent>
+                <h5>4. Dirección técnica</h5>
+                <p>
+                    Formulario para paso 4
+
+                </p>
+            </ng-template>
+        </li>
+        <li [ngbNavItem]="5">
+            <button ngbNavLink>5. Planos</button>
+            <ng-template ngbNavContent>
+                <h5>5. Planos</h5>
+                <p>
+                    Formulario para paso 5
+                </p>
+            </ng-template>
+        </li>
+    </ul>
+
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+    <div class="d-flex justify-content-end align-items-center my-4 gap-3">
+        <button 
+            type="button" 
+            class="d-flex align-items-center gap-2 btn btn-primary bg-accent-color text-white" 
+            ngbAutofocus
+            [disabled]="currentStep === 1"
+            (click)="nav.select(currentStep-1)"
+        >
+            <img src="ico-left-arrow.png" style="width: 30px; height: auto;">
+            <b>Anterior</b>
+        </button>
+        <button 
+            [type]="currentStep < 5 ? 'button' : 'submit'" 
+            class="d-flex align-items-center gap-2 btn btn-primary bg-accent-color text-white"
+            ngbAutofocus
+            (click)="currentStep < 5 ? nav.select(currentStep+1) : null"
+        >
+            <b>{{ currentStep < 5 ? 'Siguiente' : 'Finalizar' }}</b>
+            <img src="ico-right-arrow.png" style="width: 30px; height: auto;">
+        </button>
+    </div>
+</form>
