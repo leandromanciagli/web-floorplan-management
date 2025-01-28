@@ -28,9 +28,14 @@ export class SidebarComponent {
       route: '/organizaciones',
     },
     {
-      title: 'Gestionar planos',
+      title: 'Nuevo Proyecto',
       iconUrl: '/ico-organizacion.png',
-      route: '/gestionar-planos',
+      route: '/nuevo-proyecto',
+    },
+    {
+      title: 'Proyectos',
+      iconUrl: '/ico-organizacion.png',
+      route: '/listado-proyectos',
     },
   ]
 }

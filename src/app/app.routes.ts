@@ -5,7 +5,8 @@ import { OrganizacionComponent } from '@components/organizacion/organizacion.com
 import { UsuarioComponent } from '@components/usuario/usuario.component';
 import { AuthGuard } from '@guards/auth.guard';
 import { CallbackComponent } from '@components/callback/callback.component';
-import { PlanoComponent } from '@components/plano/plano.component';
+import { ProyectoComponent } from '@components/proyecto/nuevo-proyecto/nuevo-proyecto.component';
+import { ListadoProyectosComponent } from '@components/proyecto/listado-proyectos/listado-proyectos/listado-proyectos.component';
 
 
 export const routes: Routes =
@@ -18,7 +19,8 @@ export const routes: Routes =
             children: [
                 { path: 'usuarios', component: UsuarioComponent },
                 { path: 'organizaciones', component: OrganizacionComponent },
-                { path: 'gestionar-planos', component: PlanoComponent },
+                { path: 'nuevo-proyecto', component: ProyectoComponent },
+                { path: 'listado-proyectos', component: ListadoProyectosComponent },
             ]
         },
         { path: 'login', component: LoginComponent },
