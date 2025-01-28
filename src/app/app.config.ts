@@ -28,6 +28,8 @@ export const appConfig: ApplicationConfig = {
     provideAuth0({
       domain: 'dev-p28g3izr2lega4kf.us.auth0.com',
       clientId: 'KdoMJNZ3K4W5tuBWjplwlSH5kCy7t5pU',
+      cacheLocation: 'localstorage',
+      useRefreshTokens: true,
       authorizationParams: {
         redirect_uri: window.location.origin + '/callback',
         audience: 'https://127.0.0.1:3000', // Identifier de la API en Auth0
