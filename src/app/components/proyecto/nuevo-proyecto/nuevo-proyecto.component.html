@@ -5,17 +5,18 @@
     <ul ngbNav #nav="ngbNav" [(activeId)]="currentStep" class="nav-tabs">
         <li [ngbNavItem]="1">
             <button ngbNavLink>1. Datos del proyecto</button>
+            <!-- Formulario de proyecto -->
             <ng-template ngbNavContent>
                 <div class="mt-3" formGroupName="proyecto">
                     <div class="row mb-3">
                         <div class="col-8">
                             <label for="nombre" class="form-label">Nombre</label>
                             <input type="text" class="form-control" id="nombre" formControlName="nombre">
-                            <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert">
-                                <div *ngIf="nombre.hasError('required')">
+                            <div *ngIf="proyecto.nombre.invalid && (proyecto.nombre.dirty || proyecto.nombre.touched)" class="alert">
+                                <div *ngIf="proyecto.nombre.hasError('required')">
                                     El nombre es requerido.
                                 </div>
-                                <div *ngIf="nombre.hasError('minlength')">
+                                <div *ngIf="proyecto.nombre.hasError('minlength')">
                                     El nombre debe contener al menos 2 caracteres.
                                 </div>
                             </div>
@@ -23,11 +24,11 @@
                         <div class="col-4">
                             <label for="nroExpediente" class="form-label">Expediente</label>
                             <input type="text" class="form-control" id="nroExpediente" formControlName="nroExpediente">
-                            <div *ngIf="nroExpediente.invalid && (nroExpediente.dirty || nroExpediente.touched)" class="alert">
-                                <div *ngIf="nroExpediente.hasError('required')">
+                            <div *ngIf="proyecto.nroExpediente.invalid && (proyecto.nroExpediente.dirty || proyecto.nroExpediente.touched)" class="alert">
+                                <div *ngIf="proyecto.nroExpediente.hasError('required')">
                                     El expediente es requerido.
                                 </div>
-                                <div *ngIf="nroExpediente.hasError('minlength')">
+                                <div *ngIf="proyecto.nroExpediente.hasError('minlength')">
                                     El expediente debe contener al menos 2 caracteres.
                                 </div>
                             </div>
@@ -37,11 +38,10 @@
                         <div class="col">
                             <label for="provincia" class="form-label">Provincia</label>
                             <select class="form-select" id="provincia" formControlName="provincia">
-                                <option *ngFor="let provincia of provincias" [value]="provincia.provinciaId">{{
-                                    provincia.nombre }}</option>
+                                <option *ngFor="let provincia of provincias" [value]="provincia.provinciaId">{{ provincia.nombre }}</option>
                             </select>
-                            <div *ngIf="provincia.invalid && (provincia.dirty || provincia.touched)" class="alert">
-                                <div *ngIf="provincia.hasError('required')">
+                            <div *ngIf="proyecto.provincia.invalid && (proyecto.provincia.dirty || proyecto.provincia.touched)" class="alert">
+                                <div *ngIf="proyecto.provincia.hasError('required')">
                                     La provincia es requerida.
                                 </div>
                             </div>
@@ -49,11 +49,11 @@
                         <div class="col">
                             <label for="ciudad" class="form-label">Ciudad</label>
                             <input type="text" class="form-control" id="ciudad" formControlName="ciudad">
-                            <div *ngIf="ciudad.invalid && (ciudad.dirty || ciudad.touched)" class="alert">
-                                <div *ngIf="ciudad.hasError('required')">
+                            <div *ngIf="proyecto.ciudad.invalid && (proyecto.ciudad.dirty || proyecto.ciudad.touched)" class="alert">
+                                <div *ngIf="proyecto.ciudad.hasError('required')">
                                     La dirección es requerido.
                                 </div>
-                                <div *ngIf="ciudad.hasError('minlength')">
+                                <div *ngIf="proyecto.ciudad.hasError('minlength')">
                                     La dirección debe contener al menos 2 caracteres.
                                 </div>
                             </div>
@@ -61,11 +61,11 @@
                         <div class="col">
                             <label for="ubicacion" class="form-label">Ubicación</label>
                             <input type="text" class="form-control" id="ubicacion" formControlName="ubicacion">
-                            <div *ngIf="ubicacion.invalid && (ubicacion.dirty || ubicacion.touched)" class="alert">
-                                <div *ngIf="ubicacion.hasError('required')">
+                            <div *ngIf="proyecto.ubicacion.invalid && (proyecto.ubicacion.dirty || proyecto.ubicacion.touched)" class="alert">
+                                <div *ngIf="proyecto.ubicacion.hasError('required')">
                                     La ubicación es requerida.
                                 </div>
-                                <div *ngIf="ubicacion.hasError('minlength')">
+                                <div *ngIf="proyecto.ubicacion.hasError('minlength')">
                                     La ubicación debe contener al menos 2 caracteres.
                                 </div>
                             </div>
@@ -75,11 +75,10 @@
                         <div class="col">
                             <label for="tipoObra" class="form-label">Tipo de obra</label>
                             <select class="form-select" id="tipoObra" formControlName="tipoObra">
-                                <option *ngFor="let tipoObra of tiposObra" [value]="tipoObra.tipoObraId">{{ tipoObra.nombre
-                                    }}</option>
+                                <option *ngFor="let tipoObra of tiposObra" [value]="tipoObra.tipoObraId">{{ tipoObra.nombre }}</option>
                             </select>
-                            <div *ngIf="tipoObra.invalid && (tipoObra.dirty || tipoObra.touched)" class="alert">
-                                <div *ngIf="tipoObra.hasError('required')">
+                            <div *ngIf="proyecto.tipoObra.invalid && (proyecto.tipoObra.dirty || proyecto.tipoObra.touched)" class="alert">
+                                <div *ngIf="proyecto.tipoObra.hasError('required')">
                                     El tipo de obra es requerido.
                                 </div>
                             </div>
@@ -90,8 +89,8 @@
                                 <option *ngFor="let destino of destinos" [value]="destino.destinoId">{{ destino.nombre }}
                                 </option>
                             </select>
-                            <div *ngIf="destino.invalid && (destino.dirty || destino.touched)" class="alert">
-                                <div *ngIf="destino.hasError('required')">
+                            <div *ngIf="proyecto.destino.invalid && (proyecto.destino.dirty || proyecto.destino.touched)" class="alert">
+                                <div *ngIf="proyecto.destino.hasError('required')">
                                     El destino es requerido.
                                 </div>
                             </div>
@@ -99,11 +98,11 @@
                         <div class="col">
                             <label for="escala" class="form-label">Escala</label>
                             <input type="text" class="form-control" id="escala" formControlName="escala">
-                            <div *ngIf="escala.invalid && (escala.dirty || escala.touched)" class="alert">
-                                <div *ngIf="escala.hasError('required')">
+                            <div *ngIf="proyecto.escala.invalid && (proyecto.escala.dirty || proyecto.escala.touched)" class="alert">
+                                <div *ngIf="proyecto.escala.hasError('required')">
                                     La escala es requerida.
                                 </div>
-                                <div *ngIf="escala.hasError('minlength')">
+                                <div *ngIf="proyecto.escala.hasError('minlength')">
                                     La escala debe contener al menos 2 caracteres.
                                 </div>
                             </div>
@@ -133,16 +132,17 @@
         <li [ngbNavItem]="2">
             <button ngbNavLink>2. Datos del propietario</button>
             <ng-template ngbNavContent>
+                <!-- Formulario de propietario -->
                 <div class="mt-3" formGroupName="propietario">
                     <div class="row mb-3">
                         <div class="col">
                             <label for="apellido" class="form-label">Apellido</label>
                             <input type="text" class="form-control" id="apellido" formControlName="apellido">
-                            <div *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)" class="alert">
-                                <div *ngIf="apellido.hasError('required')">
+                            <div *ngIf="propietario.apellido.invalid && (propietario.apellido.dirty || propietario.apellido.touched)" class="alert">
+                                <div *ngIf="propietario.apellido.hasError('required')">
                                     El apellido es requerido.
                                 </div>
-                                <div *ngIf="apellido.hasError('minlength')">
+                                <div *ngIf="propietario.apellido.hasError('minlength')">
                                     El apellido debe contener al menos 2 caracteres.
                                 </div>
                             </div>
@@ -150,11 +150,11 @@
                         <div class="col">
                             <label for="nombres" class="form-label">Nombres</label>
                             <input type="text" class="form-control" id="nombres" formControlName="nombres">
-                            <div *ngIf="nombres.invalid && (nombres.dirty || nombres.touched)" class="alert">
-                                <div *ngIf="nombres.hasError('required')">
+                            <div *ngIf="propietario.nombres.invalid && (propietario.nombres.dirty || propietario.nombres.touched)" class="alert">
+                                <div *ngIf="propietario.nombres.hasError('required')">
                                     El nombres es requerido.
                                 </div>
-                                <div *ngIf="nombres.hasError('minlength')">
+                                <div *ngIf="propietario.nombres.hasError('minlength')">
                                     El nombres debe contener al menos 2 caracteres.
                                 </div>
                             </div>
@@ -164,8 +164,8 @@
                         <div class="col">
                             <label for="dni" class="form-label">DNI</label>
                             <input type="text" class="form-control" id="dni" formControlName="dni">
-                            <div *ngIf="dni.invalid && (dni.dirty || dni.touched)" class="alert">
-                                <div *ngIf="dni.hasError('pattern')">
+                            <div *ngIf="propietario.dni.invalid && (propietario.dni.dirty || propietario.dni.touched)" class="alert">
+                                <div *ngIf="propietario.dni.hasError('pattern')">
                                     El DNI sólo puede contener números.
                                 </div>
                             </div>
@@ -173,11 +173,11 @@
                         <div class="col">
                             <label for="domicilio" class="form-label">Domicilio</label>
                             <input type="text" class="form-control" id="domicilio" formControlName="domicilio">
-                            <div *ngIf="domicilio.invalid && (domicilio.dirty || domicilio.touched)" class="alert">
-                                <div *ngIf="domicilio.hasError('required')">
+                            <div *ngIf="propietario.domicilio.invalid && (propietario.domicilio.dirty || propietario.domicilio.touched)" class="alert">
+                                <div *ngIf="propietario.domicilio.hasError('required')">
                                     El domicilio es requerido.
                                 </div>
-                                <div *ngIf="domicilio.hasError('minlength')">
+                                <div *ngIf="propietario.domicilio.hasError('minlength')">
                                     El domicilio debe contener al menos 2 caracteres.
                                 </div>
                             </div>
@@ -187,17 +187,17 @@
                         <div class="col">
                             <label for="telefono" class="form-label">Teléfono</label>
                             <input type="text" class="form-control" id="telefono" formControlName="telefono">
-                            <div *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)" class="alert">
-                                <div *ngIf="telefono.hasError('pattern')">
+                            <div *ngIf="propietario.telefono.invalid && (propietario.telefono.dirty || propietario.telefono.touched)" class="alert">
+                                <div *ngIf="propietario.telefono.hasError('pattern')">
                                     El teléfono sólo puede contener números.
                                 </div>
                             </div>
                         </div>
                         <div class="col">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" formControlName="email" data-cy="email">
-                            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert">
-                                <div *ngIf="email.hasError('email')">
+                            <input type="email" class="form-control" id="email" formControlName="email">
+                            <div *ngIf="propietario.email.invalid && (propietario.email.dirty || propietario.email.touched)" class="alert">
+                                <div *ngIf="propietario.email.hasError('email')">
                                     El email es inválido.
                                 </div>
                             </div>
@@ -209,10 +209,111 @@
         <li [ngbNavItem]="3">
             <button ngbNavLink>3. Proyectistas</button>
             <ng-template ngbNavContent>
-                <h5>3. Proyectistas</h5>
-                <p>
-                    Formulario para paso 3
-                </p>
+                <form [formGroup]="proyectistaForm" autocomplete="off">
+                    <div class="mt-3">
+                        <!-- Formulario de proyectista -->
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="apellido" class="form-label">Apellido</label>
+                                <input type="text" class="form-control" id="apellido" formControlName="apellido">
+                                <div *ngIf="proyectista.apellido.invalid && (proyectista.apellido.dirty || proyectista.apellido.touched)" class="alert">
+                                    <div *ngIf="proyectista.apellido.hasError('required')">
+                                        El apellido es requerido.
+                                    </div>
+                                    <div *ngIf="proyectista.apellido.hasError('minlength')">
+                                        El apellido debe contener al menos 2 caracteres.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label for="nombre" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="nombre" formControlName="nombre">
+                                <div *ngIf="proyectista.nombre.invalid && (proyectista.nombre.dirty || proyectista.nombre.touched)" class="alert">
+                                    <div *ngIf="proyectista.nombre.hasError('required')">
+                                        El nombres es requerido.
+                                    </div>
+                                    <div *ngIf="proyectista.nombre.hasError('minlength')">
+                                        El nombres debe contener al menos 2 caracteres.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="dni" class="form-label">DNI</label>
+                                <input type="text" class="form-control" id="dni" formControlName="dni">
+                                <div *ngIf="proyectista.dni.invalid && (proyectista.dni.dirty || proyectista.dni.touched)" class="alert">
+                                    <div *ngIf="proyectista.dni.hasError('pattern')">
+                                        El DNI sólo puede contener números.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label for="matricula" class="form-label">Matrícula</label>
+                                <input type="text" class="form-control" id="matricula" formControlName="matricula">
+                                <div *ngIf="proyectista.matricula.invalid && (proyectista.matricula.dirty || proyectista.matricula.touched)" class="alert">
+                                    <div *ngIf="proyectista.matricula.hasError('required')">
+                                        La matrícula es requerida.
+                                    </div>
+                                    <div *ngIf="proyectista.matricula.hasError('minlength')">
+                                        La matrícula debe contener al menos 2 caracteres.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <label for="domicilio" class="form-label">Domicilio</label>
+                                <input type="text" class="form-control" id="domicilio" formControlName="domicilio">
+                                <div *ngIf="proyectista.domicilio.invalid && (proyectista.domicilio.dirty || proyectista.domicilio.touched)" class="alert">
+                                    <div *ngIf="proyectista.domicilio.hasError('required')">
+                                        El domicilio es requerido.
+                                    </div>
+                                    <div *ngIf="proyectista.domicilio.hasError('minlength')">
+                                        El domicilio debe contener al menos 2 caracteres.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label for="telefono" class="form-label">Teléfono</label>
+                                <input type="text" class="form-control" id="telefono" formControlName="telefono">
+                                <div *ngIf="proyectista.telefono.invalid && (proyectista.telefono.dirty || proyectista.telefono.touched)" class="alert">
+                                    <div *ngIf="proyectista.telefono.hasError('pattern')">
+                                        El teléfono sólo puede contener números.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end align-items-center my-4 gap-3">
+                            <button 
+                                type="button" 
+                                class="d-flex align-items-center gap-2 btn btn-primary bg-accent-color text-white"
+                                (click)="agregarProyectista()"
+                            >
+                                <img src="ico-plus.png" style="width: 30px; height: auto;">
+                                <b>Agregar proyectista</b>
+                            </button>
+                        </div>
+                        <!-- Listado de proyectistas -->
+                        <div *ngIf="proyectistas.length > 0">
+                            <h3>Listado de Proyectistas</h3>
+                            <ul>
+                                <li *ngFor="let proyectista of proyectistas.controls; let i = index">
+                                    <strong>Proyectista {{i + 1}}:</strong>
+                                    <ul>
+                                        <li>Apellido: {{proyectista.get('apellido')?.value}}</li>
+                                        <li>Nombre: {{proyectista.get('nombre')?.value}}</li>
+                                        <li>DNI: {{proyectista.get('dni')?.value}}</li>
+                                        <li>Matrícula: {{proyectista.get('matricula')?.value}}</li>
+                                        <li>Domicilio: {{proyectista.get('domicilio')?.value}}</li>
+                                        <li>Teléfono: {{proyectista.get('telefono')?.value}}</li>
+                                    </ul>
+                                    <button (click)="eliminarProyectista(i)">Eliminar</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
             </ng-template>
         </li>
         <li [ngbNavItem]="4">

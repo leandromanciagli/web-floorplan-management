@@ -36,6 +36,7 @@ export class ProyectoComponent {
   provincias: any[] = [];
 
   proyectoDeConstruccionForm!: FormGroup;
+  proyectistaForm!: FormGroup;
 
   currentStep = 1;
 
@@ -66,7 +67,6 @@ export class ProyectoComponent {
         antecedentes: [''],
         referencias: [''],
         otrasExigencias: [''],
-        aprobado: false,
       }),
       propietario: this.formBuilder.group({
         apellido: ['', [Validators.required, Validators.minLength(2)]],
@@ -76,8 +76,17 @@ export class ProyectoComponent {
         email: ['', [Validators.email]],
         telefono: ['', [Validators.pattern(/^[0-9]+$/)]],
       }),
-      // proyectistas: this.formBuilder.array([]),
+      proyectistas: this.formBuilder.array([]),
       // planos: this.formBuilder.array([]),
+    });
+
+    this.proyectistaForm = this.formBuilder.group({
+      apellido: ['', [Validators.required, Validators.minLength(2)]],
+      nombre: ['', [Validators.required, Validators.minLength(2)]],
+      dni: ['', [Validators.pattern(/^[0-9]+$/)]],
+      matricula: ['', Validators.required],
+      domicilio: ['', [Validators.required, Validators.minLength(2)]],
+      telefono: ['', [Validators.pattern(/^[0-9]+$/)]],
     });
   }
 
@@ -135,20 +144,6 @@ export class ProyectoComponent {
   async manageProyecto() {
     const userChoise = await this.swal.displayQuestion("¿Estás seguro/a?", "Estás a punto de registrar un nuevo proyecto de construcción")
     if (userChoise.isConfirmed) {
-      // let proyecto = {
-      //   nombre: this.proyectoDeConstruccionForm.value.nombre,
-      //   nroExpediente: this.proyectoDeConstruccionForm.value.nroExpediente,
-      //   provinciaId: this.proyectoDeConstruccionForm.value.provincia,
-      //   ciudad: this.proyectoDeConstruccionForm.value.ciudad,
-      //   ubicacion: this.proyectoDeConstruccionForm.value.ubicacion,
-      //   tipoObraId: this.proyectoDeConstruccionForm.value.tipoObra,
-      //   destinoFuncionalId: this.proyectoDeConstruccionForm.value.destino,
-      //   escala: this.proyectoDeConstruccionForm.value.escala,
-      //   antecedentes: this.proyectoDeConstruccionForm.value.antecedentes,
-      //   referencias: this.proyectoDeConstruccionForm.value.referencias,
-      //   otrasExigencias: this.proyectoDeConstruccionForm.value.otrasExigencias,
-      //   aprobado: false,
-      // }
       this.store.dispatch(showLoader());
       // if (this.organizacionIdSeleccionada) {
       //   this.organizacionService.update(this.organizacionIdSeleccionada, organizacion).subscribe(
@@ -185,73 +180,69 @@ export class ProyectoComponent {
     }
   }
 
-
-  get nombre() {
-    return this.proyectoDeConstruccionForm.get('proyecto.nombre')!;
+  // Método para crear un nuevo proyectista en el FormArray
+  agregarProyectista(): void {
+    this.proyectistas.push(this.proyectistaForm);
+    this.resetProyectistaForm()
   }
 
-  get nroExpediente() {
-    return this.proyectoDeConstruccionForm.get('proyecto.nroExpediente')!;
+  resetProyectistaForm() {
+    this.proyectistaForm = this.formBuilder.group({
+      apellido: ['', [Validators.required, Validators.minLength(2)]],
+      nombre: ['', [Validators.required, Validators.minLength(2)]],
+      dni: ['', [Validators.pattern(/^[0-9]+$/)]],
+      matricula: ['', Validators.required],
+      domicilio: ['', [Validators.required, Validators.minLength(2)]],
+      telefono: ['', [Validators.pattern(/^[0-9]+$/)]],
+    });
   }
 
-  get provincia() {
-    return this.proyectoDeConstruccionForm.get('proyecto.provincia')!;
+  // Método para eliminar un proyectista del FormArray
+  eliminarProyectista(index: number): void {
+    this.proyectistas.removeAt(index);
   }
 
-  get ciudad() {
-    return this.proyectoDeConstruccionForm.get('proyecto.ciudad')!;
+  get proyecto() {
+    return {
+      nombre: this.proyectoDeConstruccionForm.get('proyecto.nombre')!,
+      nroExpediente: this.proyectoDeConstruccionForm.get('proyecto.nroExpediente')!,
+      provincia: this.proyectoDeConstruccionForm.get('proyecto.provincia')!,
+      ciudad: this.proyectoDeConstruccionForm.get('proyecto.ciudad')!,
+      ubicacion: this.proyectoDeConstruccionForm.get('proyecto.ubicacion')!,
+      tipoObra: this.proyectoDeConstruccionForm.get('proyecto.tipoObra')!,
+      destino: this.proyectoDeConstruccionForm.get('proyecto.destino')!,
+      escala: this.proyectoDeConstruccionForm.get('proyecto.escala')!,
+      antecedentes: this.proyectoDeConstruccionForm.get('proyecto.antecedentes')!,
+      referencias: this.proyectoDeConstruccionForm.get('proyecto.referencias')!,
+      otrasExigencias: this.proyectoDeConstruccionForm.get('proyecto.otrasExigencias')!,
+    };
   }
 
-  get ubicacion() {
-    return this.proyectoDeConstruccionForm.get('proyecto.ubicacion')!;
+  get proyectistas(): FormArray {
+    return this.proyectoDeConstruccionForm.get('proyectistas') as FormArray;
   }
 
-  get tipoObra() {
-    return this.proyectoDeConstruccionForm.get('proyecto.tipoObra')!;
+  get propietario() {
+    return {
+      apellido: this.proyectoDeConstruccionForm.get('propietario.apellido')!,
+      nombres: this.proyectoDeConstruccionForm.get('propietario.nombres')!,
+      dni: this.proyectoDeConstruccionForm.get('propietario.dni')!,
+      domicilio: this.proyectoDeConstruccionForm.get('propietario.domicilio')!,
+      telefono: this.proyectoDeConstruccionForm.get('propietario.telefono')!,
+      email: this.proyectoDeConstruccionForm.get('propietario.email')!,
+    };
   }
 
-  get destino() {
-    return this.proyectoDeConstruccionForm.get('proyecto.destino')!;
+  get proyectista() {
+    return {
+      apellido: this.proyectistaForm.get('apellido')!,
+      nombre: this.proyectistaForm.get('nombre')!,
+      dni: this.proyectistaForm.get('dni')!,
+      matricula: this.proyectistaForm.get('matricula')!,
+      domicilio: this.proyectistaForm.get('domicilio')!,
+      telefono: this.proyectistaForm.get('telefono')!,
+    };
   }
 
-  get escala() {
-    return this.proyectoDeConstruccionForm.get('proyecto.escala')!;
-  }
-
-  get antecedentes() {
-    return this.proyectoDeConstruccionForm.get('proyecto.antecedentes')!;
-  }
-
-  get referencias() {
-    return this.proyectoDeConstruccionForm.get('proyecto.referencias')!;
-  }
-
-  get otrasExigencias() {
-    return this.proyectoDeConstruccionForm.get('proyecto.otrasExigencias')!;
-  }
-
-  get apellido() {
-    return this.proyectoDeConstruccionForm.get('propietario.apellido')!;
-  }
-
-  get nombres() {
-    return this.proyectoDeConstruccionForm.get('propietario.nombres')!;
-  }
-
-  get dni() {
-    return this.proyectoDeConstruccionForm.get('propietario.dni')!;
-  }
-
-  get domicilio() {
-    return this.proyectoDeConstruccionForm.get('propietario.domicilio')!;
-  }
-
-  get telefono() {
-    return this.proyectoDeConstruccionForm.get('propietario.telefono')!;
-  }
-
-  get email() {
-    return this.proyectoDeConstruccionForm.get('propietario.email')!;
-  }
 }
 
