@@ -7,6 +7,7 @@ import { showLoader, hideLoader } from '@components/loader/loader.actions';
 import { Store } from '@ngrx/store';
 import { DestinoService } from '@services/destino/destino.service';
 import { TipoObraService } from '@services/tipo-obra/tipo-obra.service';
+import { TipoPersonaService } from '@services/tipo-persona/tipo-persona.service';
 import { ProvinciaService } from '@services/provincia/provincia.service';
 import { ProyectoService } from '@services/proyecto/proyecto.service';
 
@@ -23,6 +24,7 @@ import { ProyectoService } from '@services/proyecto/proyecto.service';
     SweetAlertService,
     DestinoService,
     TipoObraService,
+    TipoPersonaService,
     ProvinciaService,
     ProyectoService,
   ],
@@ -33,6 +35,7 @@ export class ProyectoComponent {
 
   destinos: any[] = [];
   tiposObra: any[] = [];
+  tiposPersona: any[] = [];
   provincias: any[] = [];
 
   proyectoDeConstruccionForm!: FormGroup;
@@ -45,6 +48,7 @@ export class ProyectoComponent {
     private swal: SweetAlertService,
     private destinoService: DestinoService,
     private tipoObraService: TipoObraService,
+    private tipoPersonaService: TipoPersonaService,
     private provinciaService: ProvinciaService,
     private proyectoService: ProyectoService,
     private formBuilder: FormBuilder
@@ -54,6 +58,7 @@ export class ProyectoComponent {
     this.loadDestinos()
     this.loadTiposObra()
     this.loadProvincias()
+    this.loadTiposPersona()
     this.proyectoDeConstruccionForm = this.formBuilder.group({
       proyecto: this.formBuilder.group({
         nombre: ['', [Validators.required, Validators.minLength(2)]],
@@ -77,6 +82,18 @@ export class ProyectoComponent {
         telefono: ['', [Validators.pattern(/^[0-9]+$/)]],
       }),
       proyectistas: this.formBuilder.array([]),
+      direccionTecnica: this.formBuilder.group({
+        tipoPersonaId: ['', [Validators.required]],
+        razonSocial: [''],
+        cuit: [''],
+        nombreApellido: ['', [Validators.required, Validators.minLength(2)]],
+        dni: ['', [Validators.pattern(/^[0-9]+$/)]],
+        matricula: ['', Validators.required],
+        especialidad: ['', [Validators.minLength(2)]],
+        domicilio: ['', [Validators.required, Validators.minLength(2)]],
+        telefono: ['', [Validators.pattern(/^[0-9]+$/)]],
+        email: ['', [Validators.email]],
+      }),
       // planos: this.formBuilder.array([]),
     });
 
@@ -87,6 +104,21 @@ export class ProyectoComponent {
       matricula: ['', Validators.required],
       domicilio: ['', [Validators.required, Validators.minLength(2)]],
       telefono: ['', [Validators.pattern(/^[0-9]+$/)]],
+    });
+
+    // Escucha cambios en tipoPersona
+    this.proyectoDeConstruccionForm.get('direccionTecnica.tipoPersonaId')?.valueChanges.subscribe((tipoPersona) => {
+      const razonSocialControl = this.proyectoDeConstruccionForm.get('direccionTecnica.razonSocial');
+      const cuitControl = this.proyectoDeConstruccionForm.get('direccionTecnica.cuit');
+      if (tipoPersona === 'PERSONAJURIDICA') {
+        razonSocialControl?.setValidators([Validators.required, Validators.minLength(2)]);
+        cuitControl?.setValidators([Validators.required, Validators.pattern(/^[0-9]+$/)]);
+      } else {
+        razonSocialControl?.clearValidators();
+        cuitControl?.clearValidators();
+      }
+      razonSocialControl?.updateValueAndValidity(); // Refresca las validaciones
+      cuitControl?.updateValueAndValidity();
     });
   }
 
@@ -113,6 +145,23 @@ export class ProyectoComponent {
       {
         next: (data) => {
           this.tiposObra = data;
+          this.store.dispatch(hideLoader());
+        },
+        error: async (e) => {
+          console.log(e);
+          this.store.dispatch(hideLoader());
+          await this.swal.displayErrorMessage()
+        }
+      }
+    );
+  }
+
+  async loadTiposPersona() {
+    this.store.dispatch(showLoader());
+    this.tipoPersonaService.getAll().subscribe(
+      {
+        next: (data) => {
+          this.tiposPersona = data;
           this.store.dispatch(hideLoader());
         },
         error: async (e) => {
@@ -241,6 +290,21 @@ export class ProyectoComponent {
       matricula: this.proyectistaForm.get('matricula')!,
       domicilio: this.proyectistaForm.get('domicilio')!,
       telefono: this.proyectistaForm.get('telefono')!,
+    };
+  }
+
+  get direccionTecnica() {
+    return {
+      tipoPersonaId: this.proyectoDeConstruccionForm.get('direccionTecnica.tipoPersonaId')!,
+      razonSocial: this.proyectoDeConstruccionForm.get('direccionTecnica.razonSocial')!,
+      cuit: this.proyectoDeConstruccionForm.get('direccionTecnica.cuit')!,
+      nombreApellido: this.proyectoDeConstruccionForm.get('direccionTecnica.nombreApellido')!,
+      dni: this.proyectoDeConstruccionForm.get('direccionTecnica.dni')!,
+      matricula: this.proyectoDeConstruccionForm.get('direccionTecnica.matricula')!,
+      especialidad: this.proyectoDeConstruccionForm.get('direccionTecnica.especialidad')!,
+      domicilio: this.proyectoDeConstruccionForm.get('direccionTecnica.domicilio')!,
+      telefono: this.proyectoDeConstruccionForm.get('direccionTecnica.telefono')!,
+      email: this.proyectoDeConstruccionForm.get('direccionTecnica.email')!,
     };
   }
 

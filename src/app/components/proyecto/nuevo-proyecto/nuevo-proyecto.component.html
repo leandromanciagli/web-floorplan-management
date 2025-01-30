@@ -131,8 +131,8 @@
         </li>
         <li [ngbNavItem]="2">
             <button ngbNavLink>2. Datos del propietario</button>
+            <!-- Formulario de propietario -->
             <ng-template ngbNavContent>
-                <!-- Formulario de propietario -->
                 <div class="mt-3" formGroupName="propietario">
                     <div class="row mb-3">
                         <div class="col">
@@ -148,14 +148,14 @@
                             </div>
                         </div>
                         <div class="col">
-                            <label for="nombres" class="form-label">Nombres</label>
+                            <label for="nombres" class="form-label">Nombre</label>
                             <input type="text" class="form-control" id="nombres" formControlName="nombres">
                             <div *ngIf="propietario.nombres.invalid && (propietario.nombres.dirty || propietario.nombres.touched)" class="alert">
                                 <div *ngIf="propietario.nombres.hasError('required')">
-                                    El nombres es requerido.
+                                    El nombre es requerido.
                                 </div>
                                 <div *ngIf="propietario.nombres.hasError('minlength')">
-                                    El nombres debe contener al menos 2 caracteres.
+                                    El nombre debe contener al menos 2 caracteres.
                                 </div>
                             </div>
                         </div>
@@ -209,9 +209,9 @@
         <li [ngbNavItem]="3">
             <button ngbNavLink>3. Proyectistas</button>
             <ng-template ngbNavContent>
+                <!-- Formulario de proyectista -->
                 <form [formGroup]="proyectistaForm" autocomplete="off">
                     <div class="mt-3">
-                        <!-- Formulario de proyectista -->
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="apellido" class="form-label">Apellido</label>
@@ -230,10 +230,10 @@
                                 <input type="text" class="form-control" id="nombre" formControlName="nombre">
                                 <div *ngIf="proyectista.nombre.invalid && (proyectista.nombre.dirty || proyectista.nombre.touched)" class="alert">
                                     <div *ngIf="proyectista.nombre.hasError('required')">
-                                        El nombres es requerido.
+                                        El nombre es requerido.
                                     </div>
                                     <div *ngIf="proyectista.nombre.hasError('minlength')">
-                                        El nombres debe contener al menos 2 caracteres.
+                                        El nombre debe contener al menos 2 caracteres.
                                     </div>
                                 </div>
                             </div>
@@ -318,12 +318,166 @@
         </li>
         <li [ngbNavItem]="4">
             <button ngbNavLink>4. Dirección técnica</button>
+            <!-- Formulario de dirección técnica -->
             <ng-template ngbNavContent>
-                <h5>4. Dirección técnica</h5>
-                <p>
-                    Formulario para paso 4
-
-                </p>
+                <div class="mt-3" formGroupName="direccionTecnica">
+                    <h5>Dirección Técnica</h5>
+                    <div class="row mb-3">
+                        <div class="col-4">
+                            <label for="tipoPersona" class="form-label">Tipo de persona</label>
+                            <select class="form-select" id="tipoPersona" formControlName="tipoPersonaId">
+                                <option *ngFor="let tipoPersona of tiposPersona" [value]="tipoPersona.tipoPersonaId">{{ tipoPersona.descripcion }}</option>
+                            </select>
+                            <div *ngIf="direccionTecnica.tipoPersonaId.invalid && (direccionTecnica.tipoPersonaId.dirty || direccionTecnica.tipoPersonaId.touched)" class="alert">
+                                <div *ngIf="direccionTecnica.tipoPersonaId.hasError('required')">
+                                    El tipo de persona es requerido.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col" *ngIf="direccionTecnica.tipoPersonaId.value == 'PERSONAJURIDICA'">
+                            <label for="razonSocial" class="form-label">Razón social</label>
+                            <input type="text" class="form-control" id="razonSocial" formControlName="razonSocial">
+                            <div *ngIf="direccionTecnica.razonSocial.invalid && (direccionTecnica.razonSocial.dirty || direccionTecnica.razonSocial.touched)" class="alert">
+                                <div *ngIf="direccionTecnica.razonSocial.hasError('required')">
+                                    La razón social es requerida.
+                                </div>
+                                <div *ngIf="direccionTecnica.razonSocial.hasError('minlength')">
+                                    La razón social debe contener al menos 2 caracteres.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col" *ngIf="direccionTecnica.tipoPersonaId.value == 'PERSONAJURIDICA'">
+                            <label for="cuit" class="form-label">CUIT</label>
+                            <input type="text" class="form-control" id="cuit" formControlName="cuit">
+                            <div *ngIf="direccionTecnica.cuit.invalid && (direccionTecnica.cuit.dirty || direccionTecnica.cuit.touched)" class="alert">
+                                <div *ngIf="direccionTecnica.cuit.hasError('required')">
+                                    El CUIT es requerido.
+                                </div>
+                                <div *ngIf="direccionTecnica.cuit.hasError('pattern')">
+                                    El CUIT sólo puede contener números.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3" *ngIf="direccionTecnica.tipoPersonaId.value == 'PERSONAJURIDICA'">
+                        <div class="col">
+                            <label for="domicilio" class="form-label">Domicilio</label>
+                            <input type="text" class="form-control" id="domicilio" formControlName="domicilio">
+                            <div *ngIf="direccionTecnica.domicilio.invalid && (direccionTecnica.domicilio.dirty || direccionTecnica.domicilio.touched)"
+                                class="alert">
+                                <div *ngIf="direccionTecnica.domicilio.hasError('required')">
+                                    El domicilio es requerido.
+                                </div>
+                                <div *ngIf="direccionTecnica.domicilio.hasError('minlength')">
+                                    El domicilio debe contener al menos 2 caracteres.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="telefono" class="form-label">Teléfono</label>
+                            <input type="text" class="form-control" id="telefono" formControlName="telefono">
+                            <div *ngIf="direccionTecnica.telefono.invalid && (direccionTecnica.telefono.dirty || direccionTecnica.telefono.touched)"
+                                class="alert">
+                                <div *ngIf="direccionTecnica.telefono.hasError('pattern')">
+                                    El teléfono sólo puede contener números.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" formControlName="email">
+                            <div *ngIf="direccionTecnica.email.invalid && (direccionTecnica.email.dirty || direccionTecnica.email.touched)"
+                                class="alert">
+                                <div *ngIf="direccionTecnica.email.hasError('email')">
+                                    El email es inválido.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <h5>Responsable</h5>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="nombreApellido" class="form-label">Nombre y apellido</label>
+                            <input type="text" class="form-control" id="nombreApellido" formControlName="nombreApellido">
+                            <div *ngIf="direccionTecnica.nombreApellido.invalid && (direccionTecnica.nombreApellido.dirty || direccionTecnica.nombreApellido.touched)"
+                                class="alert">
+                                <div *ngIf="direccionTecnica.nombreApellido.hasError('required')">
+                                    El nombre del responsable es requerido.
+                                </div>
+                                <div *ngIf="direccionTecnica.nombreApellido.hasError('minlength')">
+                                    El nombre del responsable debe contener al menos 2 caracteres.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="dni" class="form-label">DNI</label>
+                            <input type="text" class="form-control" id="dni" formControlName="dni">
+                            <div *ngIf="direccionTecnica.dni.invalid && (direccionTecnica.dni.dirty || direccionTecnica.dni.touched)" class="alert">
+                                <div *ngIf="direccionTecnica.dni.hasError('pattern')">
+                                    El DNI sólo puede contener números.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <label for="matricula" class="form-label">Matrícula</label>
+                            <input type="text" class="form-control" id="matricula" formControlName="matricula">
+                            <div *ngIf="direccionTecnica.matricula.invalid && (direccionTecnica.matricula.dirty || direccionTecnica.matricula.touched)" class="alert">
+                                <div *ngIf="direccionTecnica.matricula.hasError('required')">
+                                    La matrícula es requerida.
+                                </div>
+                                <div *ngIf="direccionTecnica.matricula.hasError('minlength')">
+                                    La matrícula debe contener al menos 2 caracteres.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="especialidad" class="form-label">Especialidad</label>
+                            <input type="text" class="form-control" id="especialidad" formControlName="especialidad">
+                            <div *ngIf="direccionTecnica.especialidad.invalid && (direccionTecnica.especialidad.dirty || direccionTecnica.especialidad.touched)" class="alert">
+                                <div *ngIf="direccionTecnica.especialidad.hasError('required')">
+                                    La especialidad del responsable es requerido.
+                                </div>
+                                <div *ngIf="direccionTecnica.especialidad.hasError('minlength')">
+                                    La especialidad del responsable debe contener al menos 2 caracteres.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3" *ngIf="direccionTecnica.tipoPersonaId.value == 'PERSONAFISICA'">
+                        <div class="col">
+                            <label for="domicilio" class="form-label">Domicilio</label>
+                            <input type="text" class="form-control" id="domicilio" formControlName="domicilio">
+                            <div *ngIf="direccionTecnica.domicilio.invalid && (direccionTecnica.domicilio.dirty || direccionTecnica.domicilio.touched)" class="alert">
+                                <div *ngIf="direccionTecnica.domicilio.hasError('required')">
+                                    El domicilio es requerido.
+                                </div>
+                                <div *ngIf="direccionTecnica.domicilio.hasError('minlength')">
+                                    El domicilio debe contener al menos 2 caracteres.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="telefono" class="form-label">Teléfono</label>
+                            <input type="text" class="form-control" id="telefono" formControlName="telefono">
+                            <div *ngIf="direccionTecnica.telefono.invalid && (direccionTecnica.telefono.dirty || direccionTecnica.telefono.touched)" class="alert">
+                                <div *ngIf="direccionTecnica.telefono.hasError('pattern')">
+                                    El teléfono sólo puede contener números.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" formControlName="email">
+                            <div *ngIf="direccionTecnica.email.invalid && (direccionTecnica.email.dirty || direccionTecnica.email.touched)" class="alert">
+                                <div *ngIf="direccionTecnica.email.hasError('email')">
+                                    El email es inválido.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </ng-template>
         </li>
         <li [ngbNavItem]="5">
