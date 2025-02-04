@@ -482,11 +482,14 @@
         </li>
         <li [ngbNavItem]="5">
             <button ngbNavLink>5. Planos</button>
+            <!-- Formulario de planos -->
             <ng-template ngbNavContent>
-                <h5>5. Planos</h5>
-                <p>
-                    Formulario para paso 5
-                </p>
+            <div class="mt-3" formGroupName="planos">
+                <app-planos
+                    [planos]="planos" 
+                    (planosChange)="setPlanos($event)">
+                ></app-planos>
+            </div>
             </ng-template>
         </li>
     </ul>

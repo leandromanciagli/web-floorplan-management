@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormGroup, FormArray, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SweetAlertService } from '@services/sweet-alert/sweet-alert.service';
 import { showLoader, hideLoader } from '@components/loader/loader.actions';
 import { Store } from '@ngrx/store';
@@ -10,6 +10,7 @@ import { TipoObraService } from '@services/tipo-obra/tipo-obra.service';
 import { TipoPersonaService } from '@services/tipo-persona/tipo-persona.service';
 import { ProvinciaService } from '@services/provincia/provincia.service';
 import { ProyectoService } from '@services/proyecto/proyecto.service';
+import { PlanosComponent } from './planos/planos/planos.component';
 
 
 @Component({
@@ -19,6 +20,7 @@ import { ProyectoService } from '@services/proyecto/proyecto.service';
     CommonModule,
     ReactiveFormsModule,
     NgbNavModule,
+    PlanosComponent,
   ],
   providers: [
     SweetAlertService,
@@ -33,15 +35,13 @@ import { ProyectoService } from '@services/proyecto/proyecto.service';
 })
 export class ProyectoComponent {
 
+  currentStep = 1;
+  proyectoDeConstruccionForm!: FormGroup;
+  proyectistaForm!: FormGroup;
   destinos: any[] = [];
   tiposObra: any[] = [];
   tiposPersona: any[] = [];
   provincias: any[] = [];
-
-  proyectoDeConstruccionForm!: FormGroup;
-  proyectistaForm!: FormGroup;
-
-  currentStep = 1;
 
   constructor(
     private store: Store,
@@ -51,7 +51,7 @@ export class ProyectoComponent {
     private tipoPersonaService: TipoPersonaService,
     private provinciaService: ProvinciaService,
     private proyectoService: ProyectoService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
   ) { }
 
   ngOnInit(): void {
@@ -94,7 +94,7 @@ export class ProyectoComponent {
         telefono: ['', [Validators.pattern(/^[0-9]+$/)]],
         email: ['', [Validators.email]],
       }),
-      // planos: this.formBuilder.array([]),
+      planos: this.formBuilder.array([]),
     });
 
     this.proyectistaForm = this.formBuilder.group({
@@ -106,7 +106,7 @@ export class ProyectoComponent {
       telefono: ['', [Validators.pattern(/^[0-9]+$/)]],
     });
 
-    // Escucha cambios en tipoPersona
+    // Escucha cambios en el select de tipoPersona
     this.proyectoDeConstruccionForm.get('direccionTecnica.tipoPersonaId')?.valueChanges.subscribe((tipoPersona) => {
       const razonSocialControl = this.proyectoDeConstruccionForm.get('direccionTecnica.razonSocial');
       const cuitControl = this.proyectoDeConstruccionForm.get('direccionTecnica.cuit');
@@ -229,7 +229,6 @@ export class ProyectoComponent {
     }
   }
 
-  // Método para crear un nuevo proyectista en el FormArray
   agregarProyectista(): void {
     this.proyectistas.push(this.proyectistaForm);
     this.resetProyectistaForm()
@@ -246,9 +245,12 @@ export class ProyectoComponent {
     });
   }
 
-  // Método para eliminar un proyectista del FormArray
   eliminarProyectista(index: number): void {
     this.proyectistas.removeAt(index);
+  }
+
+  setPlanos(planos: FormArray) {
+    this.proyectoDeConstruccionForm.setControl('planos', planos);
   }
 
   get proyecto() {
@@ -306,6 +308,10 @@ export class ProyectoComponent {
       telefono: this.proyectoDeConstruccionForm.get('direccionTecnica.telefono')!,
       email: this.proyectoDeConstruccionForm.get('direccionTecnica.email')!,
     };
+  }
+
+  get planos(): FormArray {
+    return this.proyectoDeConstruccionForm.get('planos') as FormArray;
   }
 
 }
