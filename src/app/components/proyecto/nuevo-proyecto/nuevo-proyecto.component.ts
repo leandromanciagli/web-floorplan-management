@@ -10,7 +10,7 @@ import { TipoObraService } from '@services/tipo-obra/tipo-obra.service';
 import { TipoPersonaService } from '@services/tipo-persona/tipo-persona.service';
 import { ProvinciaService } from '@services/provincia/provincia.service';
 import { ProyectoService } from '@services/proyecto/proyecto.service';
-import { PlanosComponent } from './planos/planos/planos.component';
+import { PlanosComponent } from './planos/planos.component';
 
 
 @Component({

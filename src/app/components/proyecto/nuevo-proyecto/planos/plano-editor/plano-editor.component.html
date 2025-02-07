@@ -8,7 +8,7 @@
         </div>
 
         <input type="file" #fileInput (change)="onFilesAdded($event)" multiple hidden />
-        <button type="button" class="btn btn-primary bg-accent-color text-white" (click)="fileInput.click()">
+        <button type="button" class="btn btn-primary text-white" (click)="fileInput.click()">
             Adjuntar planos
             <img src="ico-plus.png" style="width: 30px; height: auto;">
         </button>
@@ -17,11 +17,11 @@
         <canvas #planoEditor></canvas>
     </div>
     <div>
-        <button type="button" class="btn btn-primary bg-accent-color text-white" *ngIf="selectedImage" (click)="zoomIn()">Zoom In</button>
-        <button type="button" class="btn btn-primary bg-accent-color text-white" *ngIf="selectedImage" (click)="zoomOut()">Zoom Out</button>
-        <button type="button" class="btn btn-primary bg-accent-color text-white" *ngIf="selectedImage && !isCropping" (click)="enableCrop()">Recortar</button>
-        <button type="button" class="btn btn-primary bg-accent-color text-white" *ngIf="isCropping" (click)="cropImage()">Aceptar recorte</button>
-        <button type="button" class="btn btn-primary bg-accent-color text-white" *ngIf="isCropping" (click)="disableCrop()">Cancelar</button>
+        <button type="button" class="btn btn-primary text-white" *ngIf="selectedImage" (click)="zoomIn()">Zoom In</button>
+        <button type="button" class="btn btn-primary text-white" *ngIf="selectedImage" (click)="zoomOut()">Zoom Out</button>
+        <button type="button" class="btn btn-primary text-white" *ngIf="selectedImage && !isCropping" (click)="enableCrop()">Recortar</button>
+        <button type="button" class="btn btn-primary text-white" *ngIf="isCropping" (click)="cropImage()">Aceptar recorte</button>
+        <button type="button" class="btn btn-primary text-white" *ngIf="isCropping" (click)="disableCrop()">Cancelar</button>
     </div>
     <!-- <div class="plano-workspace-container"> -->
         <!-- <ngx-file-drop 

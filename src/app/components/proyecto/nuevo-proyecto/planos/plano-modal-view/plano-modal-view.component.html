@@ -1,0 +1,71 @@
+<div>
+    <div class="modal-header">
+        <h1 class="modal-title fs-5 main-color">
+            <b>Confirmar nuevo recorte de plano</b>
+        </h1>
+        <button type="button" class="btn-close" (click)="discardPlano()"></button>
+    </div>
+    <form [formGroup]="planoForm" autocomplete="off">
+        <div class="modal-body px-5 d-flex flex-column gap-3">
+            <div class="row">
+                <div class="col">
+                    <label for="especialidad" class="form-label">Especialidad</label>
+                    <select class="form-select" id="especialidad" formControlName="especialidad">
+                        <option *ngFor="let especialidad of especialidades" [value]="especialidad.especialidadId">{{ especialidad.descripcion }}</option>
+                    </select>
+                    <div *ngIf="plano.especialidad.invalid && (plano.especialidad.dirty || plano.especialidad.touched)" class="alert">
+                        <div *ngIf="plano.especialidad.hasError('required')">
+                            La especialidad es requerida.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col d-flex justify-content-center">
+                    <img [src]="plano.imagen.value" alt="Plano recorte">
+                </div>
+            </div>
+            <div class="row d-flex align-items-center">
+                <label for="tagInput">Etiquetas</label>
+                <div class="col-9">
+                    <input 
+                        id="tagInput" 
+                        type="text" 
+                        class="form-control mt-2" 
+                        placeholder="Escribí una etiqueta y presioná Enter o clickeá el botón"
+                        [(ngModel)]="tagText" 
+                        [ngModelOptions]="{standalone: true}" 
+                        (keydown.enter)="addTag()"
+                    />
+                </div>
+                <div class="col-3">
+                    <button class="btn btn-primary mt-2" (click)="addTag()">Agregar etiqueta</button>
+                </div>
+            </div>
+            <div>
+                <span *ngFor="let tag of planoForm.get('etiquetas')?.value; let i = index" class="badge bg-primary m-1">
+                    {{ tag }}
+                    <button type="button" class="btn-close text-white ms-1" (click)="deleteTag(i)"></button>
+                </span>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button 
+                type="button" 
+                class="btn btn-secondary" 
+                (click)="discardPlano()"
+            >
+                Cancelar
+            </button>
+            <button 
+                class="btn btn-primary" 
+                ngbAutofocus
+                [disabled]="!planoForm.valid"
+                (click)="confirmPlano()"
+            >
+                Confirmar plano
+            </button>
+        </div>
+    </form>
+</div>

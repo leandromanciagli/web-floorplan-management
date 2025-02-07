@@ -15,23 +15,23 @@ export class PlanoEspecialidadService {
     let especialidades = [
       {
         especialidadId: "1",
-        nombre: "Arquitectura",
+        descripcion: "Arquitectura",
       },
       {
         especialidadId: "2",
-        nombre: "Estructura",
+        descripcion: "Estructura",
       },
       {
         especialidadId: "3",
-        nombre: "Instalación eléctrica",
+        descripcion: "Instalación eléctrica",
       },
       {
         especialidadId: "4",
-        nombre: "Instalación sanitaria",
+        descripcion: "Instalación sanitaria",
       },
       {
         especialidadId: "5",
-        nombre: "Otro",
+        descripcion: "Otro",
       },
     ]
     return especialidades

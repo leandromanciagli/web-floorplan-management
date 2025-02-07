@@ -2,6 +2,8 @@ import { Component, AfterViewInit, ViewChild, ElementRef, EventEmitter, Output, 
 import { Canvas, FabricImage, Rect } from 'fabric'
 import { CommonModule } from '@angular/common';
 import { SweetAlertService } from '@services/sweet-alert/sweet-alert.service';
+import { showLoader, hideLoader } from '@components/loader/loader.actions';
+import { Store } from '@ngrx/store';
 import * as pdfjsLib from 'pdfjs-dist';
 import { FormsModule } from '@angular/forms';
 // import { NgxFileDropModule, NgxFileDropEntry, FileSystemFileEntry } from 'ngx-file-drop';
@@ -32,6 +34,7 @@ export class PlanoEditorComponent implements AfterViewInit {
 
 
   constructor(
+    private store: Store,
     private swal: SweetAlertService,
   ) { }
 
@@ -74,6 +77,7 @@ export class PlanoEditorComponent implements AfterViewInit {
 
   async onFilesAdded(event: any) {
     try {
+      this.store.dispatch(showLoader());
       for (let addedFile of event.target.files) {
         if (addedFile.type.includes('image')) {          
           addedFile.url = URL.createObjectURL(addedFile);
@@ -94,8 +98,10 @@ export class PlanoEditorComponent implements AfterViewInit {
         this.canvas.centerObject(this.selectedImage);
       }
     } catch(error) {
-      console.log(error);
       this.swal.displayErrorMessage("Ocurrió un error al adjuntar el archivo")
+      console.log(error);
+    } finally {
+      this.store.dispatch(hideLoader());
     }
   }
 
