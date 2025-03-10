@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '@environments/environment';
+import { delay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -11,29 +12,7 @@ export class PlanoEspecialidadService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(): any[] {
-    let especialidades = [
-      {
-        especialidadId: "1",
-        descripcion: "Arquitectura",
-      },
-      {
-        especialidadId: "2",
-        descripcion: "Estructura",
-      },
-      {
-        especialidadId: "3",
-        descripcion: "Instalación eléctrica",
-      },
-      {
-        especialidadId: "4",
-        descripcion: "Instalación sanitaria",
-      },
-      {
-        especialidadId: "5",
-        descripcion: "Otro",
-      },
-    ]
-    return especialidades
+  getAll(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/especialidades`).pipe(delay(500));
   }
 }
