@@ -3,7 +3,7 @@
 </div>
 <form [formGroup]="proyectoDeConstruccionForm" (ngSubmit)="manageProyecto()" autocomplete="off">
     <ul ngbNav #nav="ngbNav" [(activeId)]="currentStep" class="nav-tabs">
-        <li [ngbNavItem]="1">
+        <li [ngbNavItem]="1" [disabled]="true">
             <button ngbNavLink>1. Datos del proyecto</button>
             <!-- Formulario de proyecto -->
             <ng-template ngbNavContent>
@@ -130,7 +130,7 @@
                 </div>
             </ng-template>
         </li>
-        <li [ngbNavItem]="2">
+        <li [ngbNavItem]="2" [disabled]="true">
             <button ngbNavLink>2. Datos del propietario</button>
             <!-- Formulario de propietario -->
             <ng-template ngbNavContent>
@@ -208,7 +208,7 @@
                 </div>
             </ng-template>
         </li>
-        <li [ngbNavItem]="3">
+        <li [ngbNavItem]="3" [disabled]="true">
             <button ngbNavLink>3. Proyectistas</button>
             <ng-template ngbNavContent>
                 <!-- Formulario de proyectista -->
@@ -301,7 +301,7 @@
                         </div>
                         <!-- Listado de proyectistas -->
                         <div *ngIf="proyectistas.length > 0">
-                            <h3>Listado de Proyectistas</h3>
+                            <h4>Listado de Proyectistas</h4>
                             <ul>
                                 <li *ngFor="let proyectista of proyectistas.controls; let i = index">
                                     <strong>Proyectista {{i + 1}}:</strong>
@@ -314,6 +314,7 @@
                                         <li>Teléfono: {{ proyectista.get('telefono')?.value ? proyectista.get('telefono')?.value : '-'}}</li>
                                     </ul>
                                     <button class="btn btn-primary bg-accent-color text-white my-3" (click)="eliminarProyectista(i)">Eliminar proyectista</button>
+                                    <hr>
                                 </li>
                             </ul>
                         </div>
@@ -321,7 +322,7 @@
                 </form>
             </ng-template>
         </li>
-        <li [ngbNavItem]="4">
+        <li [ngbNavItem]="4" [disabled]="true">
             <button ngbNavLink>4. Dirección técnica</button>
             <!-- Formulario de dirección técnica -->
             <ng-template ngbNavContent>
@@ -485,7 +486,7 @@
                 </div>
             </ng-template>
         </li>
-        <li [ngbNavItem]="5">
+        <li [ngbNavItem]="5" [disabled]="true">
             <button ngbNavLink>5. Planos</button>
             <!-- Formulario de planos -->
             <ng-template ngbNavContent>
@@ -516,6 +517,7 @@
             [type]="currentStep < 5 ? 'button' : 'submit'" 
             class="d-flex align-items-center gap-2 btn btn-primary bg-accent-color text-white"
             ngbAutofocus
+            [disabled]="currentStep == 5 && !proyectoDeConstruccionForm.valid"
             (click)="currentStep < 5 ? nav.select(currentStep+1) : null"
         >
             <b>{{ currentStep < 5 ? 'Siguiente' : 'Finalizar' }}</b>

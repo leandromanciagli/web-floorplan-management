@@ -6,7 +6,7 @@ import { UserSettingsComponent } from './components/user-settings/user-settings.
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { HomeComponent } from './components/home/home.component';
 import { UsuarioComponent } from './components/usuario/usuario.component';
-import { NgbTooltipConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbTooltipConfig, NgbNavConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './components/login/login.component';
 import { AuthService } from '@auth0/auth0-angular';
 
@@ -28,6 +28,7 @@ import { AuthService } from '@auth0/auth0-angular';
   ],
   providers: [
     NgbTooltipConfig,
+    NgbNavConfig,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
@@ -35,13 +36,14 @@ import { AuthService } from '@auth0/auth0-angular';
 export class AppComponent {
 
 
-  constructor(public authService: AuthService, private tooltipConfig: NgbTooltipConfig) { }
+  constructor(public authService: AuthService, private tooltipConfig: NgbTooltipConfig, private ngbNavConfig: NgbNavConfig) { }
 
   ngOnInit(): void {
     this.tooltipConfig.triggers = 'hover'
+    this.ngbNavConfig.destroyOnHide = false
 
-    this.authService.isAuthenticated$.subscribe((authStatus) => {
-      console.log('Estado de autenticación:', authStatus);
-    });
+    // this.authService.isAuthenticated$.subscribe((authStatus) => {
+    //   console.log('Estado de autenticación:', authStatus);
+    // });
   }
 }
