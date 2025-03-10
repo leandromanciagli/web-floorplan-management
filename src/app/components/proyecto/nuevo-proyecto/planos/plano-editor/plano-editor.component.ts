@@ -152,6 +152,7 @@ export class PlanoEditorComponent implements AfterViewInit {
     this.canvas.clear()
     this.canvas.backgroundColor = '#f0f0f0';
     this.canvas.add(this.selectedImage)
+    this.disableCrop()
   }
 
   zoomIn() {
