@@ -9,15 +9,15 @@
             <span class="main-color"><b>¡Hola, {{ user.name }}!</b></span>
             <span class="main-color">Administrador</span>
         </div>
-        <div>
+        <!-- <div>
             <img src="avatar.png" alt="Usuario">
-        </div>
+        </div> -->
         <div>
-            <img src="orange-chevron-down.png" style="width: 20px; height: auto;">
+            <img src="drop-down-arrow.png" style="width: 20px; height: auto;">
         </div>
     </button>
     <ul class="dropdown-menu" >
         <!-- <li><a class="dropdown-item" href="#">Configuración</a></li> -->
-        <li><a class="dropdown-item" href="#" (click)="logout()">Cerrar Sesión</a></li>
+        <li><a class="d-flex justify-content-center dropdown-item" href="#" (click)="logout()">Cerrar Sesión</a></li>
     </ul>
 </div>
