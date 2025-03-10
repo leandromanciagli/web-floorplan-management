@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgbTooltip, NgbModal, NgbActiveModal, NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { SweetAlertService } from '@services/sweet-alert/sweet-alert.service';
-import { showLoader, hideLoader } from '@components/loader/loader.actions';
-import { Store, select } from '@ngrx/store';
-import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
-import { loaderSelector } from '@components/loader/loader.selectors';
-import { Observable } from 'rxjs';
 import { ProyectoService } from '@services/proyecto/proyecto.service';
+import { showLoader, hideLoader } from '@components/loader/loader.actions';
+import { loaderSelector } from '@components/loader/loader.selectors';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-listado-proyectos',
@@ -14,10 +14,13 @@ import { ProyectoService } from '@services/proyecto/proyecto.service';
   imports: [
     CommonModule,
     NgbTooltip,
+    NgbAccordionModule,
   ],
   providers: [
     ProyectoService,
     SweetAlertService,
+    NgbModal,
+    NgbActiveModal,
   ],
   templateUrl: './listado-proyectos.component.html',
   styleUrl: './listado-proyectos.component.css'
@@ -25,17 +28,20 @@ import { ProyectoService } from '@services/proyecto/proyecto.service';
 export class ListadoProyectosComponent {
 
   proyectos: any[] = [];
-  proyectoIdSeleccionado = null;
+  proyectoDeConstruccionSeleccionado: any = null;
 
   loading$: Observable<boolean>;
 
   constructor(
     private store: Store,
     private swal: SweetAlertService,
+    private modalService: NgbModal,
+    private modalViewProyectoDeConstruccion: NgbActiveModal,
     private proyectoService: ProyectoService,
+    
   ) {
     this.loading$ = this.store.pipe(select(loaderSelector));
-   }
+  }
 
   ngOnInit(): void {
     this.loadProyectos()
@@ -77,5 +83,14 @@ export class ListadoProyectosComponent {
         }
       );
     }
+  }
+
+  openModalViewProyectoDeConstruccion(content: TemplateRef<any>, proyectoDeConstruccion: any) {
+    this.proyectoDeConstruccionSeleccionado = proyectoDeConstruccion
+    this.modalViewProyectoDeConstruccion = this.modalService.open(content, { animation: true, backdrop: 'static', centered: true, size: 'lg' })
+  }
+
+  closeModalViewProyectoDeConstruccion() {
+    this.modalViewProyectoDeConstruccion.close();
   }
 }

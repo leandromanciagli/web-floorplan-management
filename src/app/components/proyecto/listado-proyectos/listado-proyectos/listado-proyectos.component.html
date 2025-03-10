@@ -1,3 +1,103 @@
+<!-- Modal Gestionar Organizacion -->
+<ng-template #modalViewProyectoDeConstruccion let-modal>
+    <div class="modal-header">
+        <h1 class="modal-title fs-5 main-color"></h1>
+        <button type="button" class="btn-close" (click)="closeModalViewProyectoDeConstruccion()"></button>
+    </div>
+    <div class="modal-body px-5 d-flex flex-column gap-3">
+
+        <h4>Datos del proyecto</h4>
+        <span><b>Nombre</b>: {{ proyectoDeConstruccionSeleccionado.nombre}}</span>
+        <span><b>Número de expediente</b>: {{ proyectoDeConstruccionSeleccionado.nroExpediente }}</span>
+        <span><b>Ciudad</b>: {{ proyectoDeConstruccionSeleccionado.ciudad }}</span>
+        <span><b>Ubicación</b>: {{ proyectoDeConstruccionSeleccionado.ubicacion }}</span>
+        <span><b>Escala</b>: {{ proyectoDeConstruccionSeleccionado.escala }}</span>
+        <span><b>Antecedentes</b>: {{ proyectoDeConstruccionSeleccionado.antecedentes }}</span>
+        <span><b>Otras exigencias</b>: {{ proyectoDeConstruccionSeleccionado.otrasExigencias }}</span>
+        <span><b>Destino</b>: {{ proyectoDeConstruccionSeleccionado.destinoFuncional.nombre }}</span>
+        <span><b>Tipo de obra</b>: {{ proyectoDeConstruccionSeleccionado.tipoObra.nombre }}</span>
+        <span><b>Provincia</b>: {{ proyectoDeConstruccionSeleccionado.provincia.nombre }}</span>    
+        <span><b>Aprobado</b>: {{ proyectoDeConstruccionSeleccionado.aprobado }}</span>
+
+        <h4>Propietario</h4>
+        <span><b>Nombre</b>: {{ proyectoDeConstruccionSeleccionado.propietario.nombres }}</span>
+        <span><b>Apellido</b>: {{ proyectoDeConstruccionSeleccionado.propietario.apellido }}</span>
+        <span><b>DNI</b>: {{ proyectoDeConstruccionSeleccionado.propietario.dni }}</span>
+        <span><b>Domicilio</b>: {{ proyectoDeConstruccionSeleccionado.propietario.domicilio }}</span>
+        <span><b>Email</b>: {{ proyectoDeConstruccionSeleccionado.propietario.email }}</span>
+        <span><b>Teléfono</b>: {{ proyectoDeConstruccionSeleccionado.propietario.telefono }}</span>
+
+        <h4>Dirección técnica</h4>
+        <span><b>Tipo de persona</b>: {{ proyectoDeConstruccionSeleccionado.direccionTecnica.tipoPersona.descripcion }}</span>
+        <span><b>CUIT</b>: {{ proyectoDeConstruccionSeleccionado.direccionTecnica.cuit }}</span>
+        <span><b>Razón social</b>: {{ proyectoDeConstruccionSeleccionado.direccionTecnica.razonSocial }}</span>
+        <span><b>Nombre y apellido</b>: {{ proyectoDeConstruccionSeleccionado.direccionTecnica.nombreApellido }}</span>
+        <span><b>DNI</b>: {{ proyectoDeConstruccionSeleccionado.direccionTecnica.dni }}</span>
+        <span><b>Matrícula</b>: {{ proyectoDeConstruccionSeleccionado.direccionTecnica.matricula }}</span>
+        <span><b>Especialidad</b>: {{ proyectoDeConstruccionSeleccionado.direccionTecnica.especialidad }}</span>
+        <span><b>Domicilio</b>: {{ proyectoDeConstruccionSeleccionado.direccionTecnica.domicilio }}</span>
+        <span><b>Teléfono</b>: {{ proyectoDeConstruccionSeleccionado.direccionTecnica.telefono }}</span>
+        <span><b>Email</b>: {{ proyectoDeConstruccionSeleccionado.direccionTecnica.email }}</span>
+
+        <h4>Proyectistas</h4>
+        <ul>
+            <li *ngFor="let proyectista of proyectoDeConstruccionSeleccionado.proyectistas; let i = index">
+                <strong>Proyectista {{i + 1}}:</strong>
+                <ul>
+                    <li><b>Nombre</b>: {{ proyectista.nombre }}</li>
+                    <li><b>Apellido</b>: {{ proyectista.apellido }}</li>
+                    <li><b>DNI</b>: {{ proyectista.dni }}</li>
+                    <li><b>Domicilio</b>: {{ proyectista.domicilio }}</li>
+                    <li><b>Matrícula</b>: {{ proyectista.matricula }}</li>
+                    <li><b>Teléfono</b>: {{ proyectista.telefono }}</li>
+                </ul>
+            </li>
+        </ul>
+
+        <div>
+            <h4>Planos</h4>
+            <div ngbAccordion [closeOthers]="true">
+                <div *ngFor="let plano of proyectoDeConstruccionSeleccionado.planos; let i = index" ngbAccordionItem>
+                    <h2 ngbAccordionHeader>
+                        <button ngbAccordionButton>Plano {{ i+1 }} - {{ plano.especialidad.descripcion }}</button>
+                    </h2>
+                    <div ngbAccordionCollapse>
+                        <div ngbAccordionBody>
+                            <ng-template>
+                                <div class="d-flex">
+                                    <div class="ms-5">
+                                        <img [src]="plano.imagen" alt="`Plano ${i}`">
+                                    </div>
+                                    <div class="d-flex flex-column justify-content-between">
+                                        <div>
+                                            <div class="ms-5 my-3">
+                                                <h4>Especialidad</h4>
+                                                <span class="ps-4">{{ plano.especialidad.descripcion }}</span>
+                                            </div>
+                                            <div class="ms-5 my-3" *ngIf="plano.etiquetas.length > 0">
+                                                <h4>Etiquetas</h4>
+                                                <div class="ps-4">
+                                                    <span *ngFor="let etiqueta of plano.etiquetas" class="badge bg-primary m-1">
+                                                        {{ etiqueta.texto }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModalViewProyectoDeConstruccion()">Cerrar</button>
+    </div>
+</ng-template>
+
 <div class="d-flex justify-content-between align-items-center my-4">
     <h2 class="m-0 main-color"><b>Proyectos de construcción</b></h2>
 </div>
@@ -23,9 +123,9 @@
             <td class="align-middle text-center">{{ proyecto.ciudad }}</td>
             <td class="align-middle text-center">{{ proyecto.ubicacion }}</td>
             <td class="d-flex justify-content-center gap-2">
-                <!-- <button type="button" class="btn btn-primary btn-circle" data-bs-dismiss="modal">
-                    <img src="ico-view.png">
-                </button> -->
+                <button type="button" class="btn btn-primary btn-circle" ngbTooltip="Ver detalles" placement="top" data-bs-dismiss="modal" (click)="openModalViewProyectoDeConstruccion(modalViewProyectoDeConstruccion, proyecto)">
+                    <img src="ico-eye.png">
+                </button>
                 <!-- <button type="button" class="btn btn-circle btn-primary" ngbTooltip="Editar organización"
                     placement="top" (click)="openModalGestionOrganizacion(modalGestionOrganizacion, organizacion)">
                     <img src="ico-edit.png">
