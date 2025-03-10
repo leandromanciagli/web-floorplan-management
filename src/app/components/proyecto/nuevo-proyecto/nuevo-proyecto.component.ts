@@ -81,7 +81,7 @@ export class ProyectoComponent {
         email: ['', [Validators.email]],
         telefono: ['', [Validators.pattern(/^[0-9]+$/)]],
       }),
-      proyectistas: this.formBuilder.array([]),
+      proyectistas: this.formBuilder.array([], Validators.required),
       direccionTecnica: this.formBuilder.group({
         tipoPersonaId: ['', [Validators.required]],
         razonSocial: [''],
@@ -94,7 +94,7 @@ export class ProyectoComponent {
         telefono: ['', [Validators.pattern(/^[0-9]+$/)]],
         email: ['', [Validators.email]],
       }),
-      planos: this.formBuilder.array([]),
+      planos: this.formBuilder.array([], Validators.required),
     });
 
     this.proyectistaForm = this.formBuilder.group({
