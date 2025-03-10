@@ -47,21 +47,20 @@ export class PlanosComponent {
   }
 
   async loadEspecialidades() {
-    this.especialidades = this.planoEspecialidadService.getAll()
-    // this.store.dispatch(showLoader());
-    // this.planoEspecialidadService.getAll().subscribe(
-    //   {
-    //     next: (data) => {
-    //       this.especialidades = data;
-    //       this.store.dispatch(hideLoader());
-    //     },
-    //     error: async (e) => {
-    //       console.log(e);
-    //       this.store.dispatch(hideLoader());
-    //       await this.swal.displayErrorMessage()
-    //     }
-    //   }
-    // );
+    this.store.dispatch(showLoader());
+    this.planoEspecialidadService.getAll().subscribe(
+      {
+        next: (data) => {
+          this.especialidades = data;
+          this.store.dispatch(hideLoader());
+        },
+        error: async (e) => {
+          console.log(e);
+          this.store.dispatch(hideLoader());
+          await this.swal.displayErrorMessage()
+        }
+      }
+    );
   } 
 
   openModalGestionPlano(croppedImage: string) {
