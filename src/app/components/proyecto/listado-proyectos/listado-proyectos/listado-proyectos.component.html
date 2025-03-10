@@ -17,7 +17,8 @@
         <span><b>Destino</b>: {{ proyectoDeConstruccionSeleccionado.destinoFuncional.nombre }}</span>
         <span><b>Tipo de obra</b>: {{ proyectoDeConstruccionSeleccionado.tipoObra.nombre }}</span>
         <span><b>Provincia</b>: {{ proyectoDeConstruccionSeleccionado.provincia.nombre }}</span>    
-        <span><b>Aprobado</b>: {{ proyectoDeConstruccionSeleccionado.aprobado }}</span>
+        <span><b>Aprobado</b>: {{ proyectoDeConstruccionSeleccionado.aprobado ? 'Si' : 'No' }}</span>
+        <br>
 
         <h4>Propietario</h4>
         <span><b>Nombre</b>: {{ proyectoDeConstruccionSeleccionado.propietario.nombres }}</span>
@@ -26,6 +27,7 @@
         <span><b>Domicilio</b>: {{ proyectoDeConstruccionSeleccionado.propietario.domicilio }}</span>
         <span><b>Email</b>: {{ proyectoDeConstruccionSeleccionado.propietario.email }}</span>
         <span><b>Teléfono</b>: {{ proyectoDeConstruccionSeleccionado.propietario.telefono }}</span>
+        <br>
 
         <h4>Dirección técnica</h4>
         <span><b>Tipo de persona</b>: {{ proyectoDeConstruccionSeleccionado.direccionTecnica.tipoPersona.descripcion }}</span>
@@ -38,6 +40,7 @@
         <span><b>Domicilio</b>: {{ proyectoDeConstruccionSeleccionado.direccionTecnica.domicilio }}</span>
         <span><b>Teléfono</b>: {{ proyectoDeConstruccionSeleccionado.direccionTecnica.telefono }}</span>
         <span><b>Email</b>: {{ proyectoDeConstruccionSeleccionado.direccionTecnica.email }}</span>
+        <br>
 
         <h4>Proyectistas</h4>
         <ul>
@@ -49,8 +52,9 @@
                     <li><b>DNI</b>: {{ proyectista.dni }}</li>
                     <li><b>Domicilio</b>: {{ proyectista.domicilio }}</li>
                     <li><b>Matrícula</b>: {{ proyectista.matricula }}</li>
-                    <li><b>Teléfono</b>: {{ proyectista.telefono }}</li>
+                    <li><b>Teléfono</b>: {{ proyectista.telefono ? proyectista.telefono : '-' }}</li>
                 </ul>
+                <br>
             </li>
         </ul>
 
@@ -126,10 +130,6 @@
                 <button type="button" class="btn btn-primary btn-circle" ngbTooltip="Ver detalles" placement="top" data-bs-dismiss="modal" (click)="openModalViewProyectoDeConstruccion(modalViewProyectoDeConstruccion, proyecto)">
                     <img src="ico-eye.png">
                 </button>
-                <!-- <button type="button" class="btn btn-circle btn-primary" ngbTooltip="Editar organización"
-                    placement="top" (click)="openModalGestionOrganizacion(modalGestionOrganizacion, organizacion)">
-                    <img src="ico-edit.png">
-                </button> -->
                 <button type="button" class="btn btn-circle btn-warning" placement="top" ngbTooltip="Eliminar proyecto de construcción" (click)="deleteProyecto(proyecto)">
                     <img src="ico-delete.png">
                 </button>

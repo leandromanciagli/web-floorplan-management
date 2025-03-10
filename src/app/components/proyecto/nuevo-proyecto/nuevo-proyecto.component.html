@@ -291,6 +291,8 @@
                             <button 
                                 type="button" 
                                 class="d-flex align-items-center gap-2 btn btn-primary bg-accent-color text-white"
+                                ngbAutofocus 
+                                [disabled]="!proyectistaForm.valid"
                                 (click)="agregarProyectista()"
                             >
                                 <img src="ico-plus.png" style="width: 30px; height: auto;">
@@ -304,14 +306,14 @@
                                 <li *ngFor="let proyectista of proyectistas.controls; let i = index">
                                     <strong>Proyectista {{i + 1}}:</strong>
                                     <ul>
-                                        <li>Apellido: {{proyectista.get('apellido')?.value}}</li>
-                                        <li>Nombre: {{proyectista.get('nombre')?.value}}</li>
-                                        <li>DNI: {{proyectista.get('dni')?.value}}</li>
-                                        <li>Matrícula: {{proyectista.get('matricula')?.value}}</li>
-                                        <li>Domicilio: {{proyectista.get('domicilio')?.value}}</li>
-                                        <li>Teléfono: {{proyectista.get('telefono')?.value}}</li>
+                                        <li>Apellido: {{ proyectista.get('apellido')?.value }}</li>
+                                        <li>Nombre: {{ proyectista.get('nombre')?.value }}</li>
+                                        <li>DNI: {{ proyectista.get('dni')?.value }}</li>
+                                        <li>Matrícula: {{ proyectista.get('matricula')?.value }}</li>
+                                        <li>Domicilio: {{ proyectista.get('domicilio')?.value }}</li>
+                                        <li>Teléfono: {{ proyectista.get('telefono')?.value ? proyectista.get('telefono')?.value : '-'}}</li>
                                     </ul>
-                                    <button (click)="eliminarProyectista(i)">Eliminar</button>
+                                    <button class="btn btn-primary bg-accent-color text-white my-3" (click)="eliminarProyectista(i)">Eliminar proyectista</button>
                                 </li>
                             </ul>
                         </div>
