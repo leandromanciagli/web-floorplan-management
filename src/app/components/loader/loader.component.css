@@ -18,5 +18,5 @@
     width: 4rem; 
     height: 4rem;
     border-width: 0.40rem;
-    color: #ED9B40;
+    color: var(--secondary-color);
 }
