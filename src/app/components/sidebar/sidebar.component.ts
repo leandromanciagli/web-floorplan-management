@@ -24,17 +24,17 @@ export class SidebarComponent {
     },
     {
       title: 'Organizaciones',
-      iconUrl: '/ico-organizacion.png',
+      iconUrl: '/ico-organizaciones.png',
       route: '/organizaciones',
     },
     {
       title: 'Nuevo Proyecto',
-      iconUrl: '/ico-organizacion.png',
+      iconUrl: '/ico-plans.png',
       route: '/nuevo-proyecto',
     },
     {
       title: 'Proyectos',
-      iconUrl: '/ico-organizacion.png',
+      iconUrl: '/ico-edificios.png',
       route: '/listado-proyectos',
     },
   ]
