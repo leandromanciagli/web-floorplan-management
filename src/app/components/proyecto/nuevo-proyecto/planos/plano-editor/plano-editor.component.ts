@@ -1,11 +1,12 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, EventEmitter, Output, Input } from '@angular/core';
-import { Canvas, FabricImage, Rect } from 'fabric'
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import { Store } from '@ngrx/store';
 import { SweetAlertService } from '@services/sweet-alert/sweet-alert.service';
 import { showLoader, hideLoader } from '@components/loader/loader.actions';
-import { Store } from '@ngrx/store';
+import { Canvas, FabricImage, Rect } from 'fabric'
 import * as pdfjsLib from 'pdfjs-dist';
-import { FormsModule } from '@angular/forms';
 // import { NgxFileDropModule, NgxFileDropEntry, FileSystemFileEntry } from 'ngx-file-drop';
 
 @Component({
@@ -14,6 +15,7 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     FormsModule,
+    NgbTooltip,
     // NgxFileDropModule,
   ],
   providers: [

@@ -2,6 +2,16 @@ canvas {
     border: 1px solid #ccc;
     border-radius: 8px;
 }
+
+.btn-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+i {
+    font-size: 1.3rem;
+}
 /* 
 .plano-workspace-container {
     width: 900px;

@@ -1,49 +1,62 @@
-<div>
-    <div class="d-flex align-items-center gap-4 mt-2 mb-2">
-        <div class="col">
-            <select class="form-select" id="files" (change)="changeSelectedImage($event)">
-                <option hidden>Seleccioná el plano que querés recortar</option>
-                <option *ngFor="let file of files; index as i" [value]="i">{{ file.name }}</option>
-            </select>
+<div class="d-flex">
+    <div class="d-flex flex-column">
+        <div class="d-flex align-items-center gap-4 mt-2 mb-2">
+            <div class="col">
+                <select class="form-select" id="files" (change)="changeSelectedImage($event)">
+                    <option hidden>Seleccioná el plano que querés recortar</option>
+                    <option *ngFor="let file of files; index as i" [value]="i">{{ file.name }}</option>
+                </select>
+            </div>
+    
+            <input type="file" #fileInput (change)="onFilesAdded($event)" multiple hidden />
+            <button type="button" class="btn btn-primary text-white" (click)="fileInput.click()">
+                Adjuntar planos
+                <img src="ico-plus.png" style="width: 30px; height: auto;">
+            </button>
         </div>
-
-        <input type="file" #fileInput (change)="onFilesAdded($event)" multiple hidden />
-        <button type="button" class="btn btn-primary text-white" (click)="fileInput.click()">
-            Adjuntar planos
-            <img src="ico-plus.png" style="width: 30px; height: auto;">
+        <div>
+            <canvas #planoEditor></canvas>
+        </div>
+    
+        <!-- <div class="plano-workspace-container"> -->
+            <!-- <ngx-file-drop 
+                dropZoneClassName="ngx-file-drop-zone"
+                contentClassName="ngx-file-drop-content"
+                (onFileDrop)="onFilesAdded($event)" 
+                (onFileOver)="fileOver($event)"
+                (onFileLeave)="fileLeave($event)"
+            >
+                <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+                    <div class="d-flex flex-column justify-content-center align-items-center gap-2">
+                        <span>Arrastra y suelta archivos aquí o haz clic para seleccionar</span>
+                        <button 
+                            type="button"
+                            class="btn btn-primary bg-accent-color text-white"
+                            (click)="openFileSelector()"
+                        >
+                            Adjuntar planos
+                            <img src="ico-plus.png" style="width: 30px; height: auto;">
+                        </button>
+                    </div>
+                </ng-template>
+            </ngx-file-drop> -->
+        <!-- </div> -->
+    </div>
+    <div class="d-flex flex-column justify-content-end m-3 gap-2" *ngIf="selectedImage">
+        <button type="button" class="btn btn-primary btn-circle" ngbTooltip="Confirmar recorte" placement="right" (click)="cropImage()" *ngIf="isCropping">
+            <i class="bi bi-check2"></i>
+        </button>
+        <button type="button" class="btn btn-primary btn-circle" ngbTooltip="Descartar recorte" placement="right" (click)="disableCrop()" *ngIf="isCropping">
+            <i class="bi bi-x-lg"></i>
+        </button>
+        <button type="button" class="btn btn-primary btn-circle" ngbTooltip="Recortar plano" placement="right" (click)="enableCrop()" *ngIf="!isCropping">
+            <i class="bi bi-scissors"></i>
+        </button>
+        <button type="button" class="btn btn-primary btn-circle" ngbTooltip="Aplicar zoom" placement="right" (click)="zoomIn()">
+            <i class="bi bi-zoom-in"></i>
+        </button>
+        <button type="button" class="btn btn-primary btn-circle" ngbTooltip="Quitar zoom" placement="right" (click)="zoomOut()">
+            <i class="bi bi-zoom-out"></i>
         </button>
     </div>
-    <div>
-        <canvas #planoEditor></canvas>
-    </div>
-    <div>
-        <button type="button" class="btn btn-primary text-white" *ngIf="selectedImage" (click)="zoomIn()">Zoom In</button>
-        <button type="button" class="btn btn-primary text-white" *ngIf="selectedImage" (click)="zoomOut()">Zoom Out</button>
-        <button type="button" class="btn btn-primary text-white" *ngIf="selectedImage && !isCropping" (click)="enableCrop()">Recortar</button>
-        <button type="button" class="btn btn-primary text-white" *ngIf="isCropping" (click)="cropImage()">Aceptar recorte</button>
-        <button type="button" class="btn btn-primary text-white" *ngIf="isCropping" (click)="disableCrop()">Cancelar</button>
-    </div>
-    <!-- <div class="plano-workspace-container"> -->
-        <!-- <ngx-file-drop 
-            dropZoneClassName="ngx-file-drop-zone"
-            contentClassName="ngx-file-drop-content"
-            (onFileDrop)="onFilesAdded($event)" 
-            (onFileOver)="fileOver($event)"
-            (onFileLeave)="fileLeave($event)"
-        >
-            <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-                <div class="d-flex flex-column justify-content-center align-items-center gap-2">
-                    <span>Arrastra y suelta archivos aquí o haz clic para seleccionar</span>
-                    <button 
-                        type="button"
-                        class="btn btn-primary bg-accent-color text-white"
-                        (click)="openFileSelector()"
-                    >
-                        Adjuntar planos
-                        <img src="ico-plus.png" style="width: 30px; height: auto;">
-                    </button>
-                </div>
-            </ng-template>
-        </ngx-file-drop> -->
-    <!-- </div> -->
 </div>

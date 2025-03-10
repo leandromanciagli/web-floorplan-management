@@ -8,6 +8,7 @@
             <!-- Formulario de proyecto -->
             <ng-template ngbNavContent>
                 <div class="mt-3" formGroupName="proyecto">
+                    <h5 class="my-4">Proyecto de construcción</h5>
                     <div class="row mb-3">
                         <div class="col-8">
                             <label for="nombre" class="form-label">Nombre</label>
@@ -134,6 +135,7 @@
             <!-- Formulario de propietario -->
             <ng-template ngbNavContent>
                 <div class="mt-3" formGroupName="propietario">
+                    <h5 class="my-4">Propietario</h5>
                     <div class="row mb-3">
                         <div class="col">
                             <label for="apellido" class="form-label">Apellido</label>
@@ -212,6 +214,7 @@
                 <!-- Formulario de proyectista -->
                 <form [formGroup]="proyectistaForm" autocomplete="off">
                     <div class="mt-3">
+                        <h5 class="my-4">Proyectistas</h5>
                         <div class="row mb-3">
                             <div class="col">
                                 <label for="apellido" class="form-label">Apellido</label>
@@ -321,7 +324,7 @@
             <!-- Formulario de dirección técnica -->
             <ng-template ngbNavContent>
                 <div class="mt-3" formGroupName="direccionTecnica">
-                    <h5>Dirección Técnica</h5>
+                    <h5 class="my-4">Dirección Técnica</h5>
                     <div class="row mb-3">
                         <div class="col-4">
                             <label for="tipoPersona" class="form-label">Tipo de persona</label>
@@ -394,7 +397,7 @@
                             </div>
                         </div>
                     </div>
-                    <h5>Responsable</h5>
+                    <h5 class="my-4">Responsable</h5>
                     <div class="row mb-3">
                         <div class="col">
                             <label for="nombreApellido" class="form-label">Nombre y apellido</label>

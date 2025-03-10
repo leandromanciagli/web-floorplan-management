@@ -2,3 +2,7 @@ ngb-nav {
     border: 1px solid #ccc;
     border-radius: 8px;
 }
+
+.nav-link {
+    color: black;
+}

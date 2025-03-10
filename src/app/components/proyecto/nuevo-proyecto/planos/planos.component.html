@@ -1,4 +1,4 @@
-<h5>5. Planos</h5>
+<h5 class="my-4">Planos</h5>
 <span>Adjuntá el/los planos y seleccioná las zonas a recortar</span>
 <div class="mb-5">
     <div class="d-flex">
@@ -6,7 +6,7 @@
     </div>
 </div>
 <div *ngIf="planos.value.length > 0">
-    <h5>Planos actuales</h5>
+    <h5 class="my-4">Planos actuales</h5>
     <div ngbAccordion [closeOthers]="true">
         <div *ngFor="let plano of planos.value; let i = index" ngbAccordionItem>
             <h2 ngbAccordionHeader>
