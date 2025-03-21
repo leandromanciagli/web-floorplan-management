@@ -31,7 +31,7 @@ export const appConfig: ApplicationConfig = {
       cacheLocation: 'localstorage',
       useRefreshTokens: true,
       authorizationParams: {
-        redirect_uri: window.location.origin + '/callback',
+        redirect_uri: window.location.origin+'/callback',
         audience: 'https://127.0.0.1:3000', // Identifier de la API en Auth0
       },
     }),

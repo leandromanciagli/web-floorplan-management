@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthService } from '@auth0/auth0-angular';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-user-settings',
@@ -13,9 +13,18 @@ import { CommonModule } from '@angular/common';
 })
 export class UserSettingsComponent {
 
-  constructor(public auth: AuthService) { }
+  loggedUser: any
+
+  constructor(
+    public authService: AuthService,
+  ) { }
+
+  ngOnInit(): void {
+    this.loggedUser = sessionStorage.getItem('loggedUser') 
+    this.loggedUser = JSON.parse(this.loggedUser)
+  }
   
-  logout() {
-    this.auth.logout({ logoutParams: { returnTo: 'http://localhost:4200/login' } });
+  async logOut() {
+    this.authService.logout();
   }
 }

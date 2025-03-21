@@ -16,9 +16,19 @@ export class UsuarioService {
     return this.http.get<any[]>(`${this.apiUrl}/usuarios`).pipe(delay(500));
   }
 
-  // findByEmail(email: string): Observable<any[]> {
-  //   return this.http.get<any[]>(`${this.apiUrl}/usuarios?filter={"where":{"email":${email}}}`).pipe(delay(500));
-  // }
+  findByEmailTelefonoOrUsername(filter: any): Observable<any[]> {
+    let params = ''
+    if (filter.email) {
+      params = params + `email=${filter.email}&`
+    }
+    if (filter.telefono) {
+      params = params + `telefono=${filter.telefono}&`
+    }
+    if (filter.username) {
+      params = params + `username=${filter.username}`
+    }
+    return this.http.get<any[]>(`${this.apiUrl}/usuarios/autenticate?${params}`).pipe(delay(500));
+  }
 
   create(usuario: any): Observable<any[]> {
     return this.http.post<any[]>(`${this.apiUrl}/usuarios`, usuario).pipe(delay(500));

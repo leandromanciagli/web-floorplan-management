@@ -8,7 +8,7 @@
             <img class="app-icon" src="ico-app.png" alt="Floorplan Management System">
         </div>
     </div>
-    <div *ngIf="!(authService.isAuthenticated$ | async)">
+    <div>
         <button class="btn btn-primary" (click)="login()">
             <span class="m-5">Iniciar Sesión</span>
         </button>

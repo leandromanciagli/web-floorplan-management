@@ -1,43 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '@auth0/auth0-angular';
 import { Router } from '@angular/router';
-import { UsuarioService } from '../../services/usuario/usuario.service';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'app-callback',
-  template: `<p>Procesando inicio de sesión...</p>`,
-  providers: [
-    UsuarioService
-  ],
+  standalone: true,
+  templateUrl: './callback.component.html',
+  styleUrl: './callback.component.css'
 })
 export class CallbackComponent implements OnInit {
-  constructor(private auth: AuthService, private usuarioService: UsuarioService, private router: Router) { }
+
+  constructor(
+    public authService: AuthService,
+    public router: Router
+  ) { }
 
   ngOnInit(): void {
-    // this.auth.user$.subscribe((user) => {
-    //   if (user) {
-    //     console.log(user);
-    //     console.log("HAY USUARIO");
-    //     this.usuarioService.findByEmail("leandromanciagli@gmail.com").subscribe(
-    //       {
-    //         next: (data) => {
-    //           console.log("ENCONTRO EL USUARIO EN LA BD");
-    //           console.log(data);
-    //         },
-    //         error: async (e) => {
-    //           console.log(e);
-    //         }
-    //       }
-    //     );
-        // const roles = user['https://your-app.com/roles'] || [];
-        // if (roles.includes('admin')) {
-        //   this.router.navigate(['/usuarios']);
-        // } else if (roles.includes('user')) {
-        //   this.router.navigate(['/organizaciones']);
-        // } else {
-        //   this.router.navigate(['/']);
-        // }
-      // }
-    // });
+
+    this.authService.isAuthenticated$.subscribe(isAuthenticated => {
+      if (isAuthenticated) {
+        this.router.navigate(['/spa']);
+      } else {
+        this.router.navigate(['/login']);
+      }
+    })
   }
 }

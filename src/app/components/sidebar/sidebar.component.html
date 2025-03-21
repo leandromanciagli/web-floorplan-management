@@ -2,7 +2,7 @@
     <ul class="p-4 d-flex flex-column justify-content-around align-items-center" style="height:100%">
         <li
             class="d-flex flex-column"
-            *ngFor="let section of sections" 
+            *ngFor="let section of getSectionsByRol" 
         >
             <a 
                 routerLink="{{ section.route }}" 
