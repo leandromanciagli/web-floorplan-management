@@ -135,3 +135,9 @@ th {
     justify-content: center;
     align-items: center;
 }
+
+.plano-img {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 400px;
+}
