@@ -19,7 +19,21 @@ export class SweetAlertService {
       text: text,
       allowOutsideClick: false,
       showConfirmButton: true,
-      // timer: 1700,
+      confirmButtonText: 'Aceptar',
+      confirmButtonColor: '#3B6472',
+    })
+  }
+
+  async displayWarningMessage(
+    msg = 'Atención',
+    text = ''
+  ) {
+    await swal.fire({
+      icon: 'warning',
+      title: msg,
+      text: text,
+      allowOutsideClick: false,
+      showConfirmButton: true,
       confirmButtonText: 'Aceptar',
       confirmButtonColor: '#3B6472',
     })

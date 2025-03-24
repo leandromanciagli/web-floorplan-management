@@ -32,6 +32,10 @@ export class UsuarioService {
     return this.http.delete<any[]>(`${this.apiUrl}/usuarios/${id}`).pipe(delay(500));
   }
 
+  manageAccount(id: string, usuario: any): Observable<any[]> {
+    return this.http.patch<any[]>(`${this.apiUrl}/usuarios/${id}`, usuario).pipe(delay(500));
+  }
+
   getLoggedUser() {
     let loggedUser = sessionStorage.getItem('loggedUser')
     return  JSON.parse(loggedUser!)

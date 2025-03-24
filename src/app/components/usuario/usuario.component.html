@@ -8,21 +8,29 @@
             <th class="text-center">Nombre y apellido</th>
             <th class="text-center">DNI</th>
             <th class="text-center">Email</th>
+            <th class="text-center">Teléfono</th>
             <th class="text-center">Rol</th>
             <th class="text-center">Organización</th>
             <th class="text-center">Acciones</th>
         </tr>
     </thead>
     <tbody>
-            <tr *ngFor="let usuario of usuarios">
-                <td class="align-middle text-center">{{ usuario.nombreYapellido }}</td>
-                <td class="align-middle text-center">{{ usuario.dni }}</td>
-                <td class="align-middle text-center">{{ usuario.email ? usuario.email : '-' }}</td>
-                <td class="align-middle text-center">{{ usuario.rol.nombre }}</td>
-                <td class="align-middle text-center">{{ usuario.organizacion ? usuario.organizacion.nombre : '-' }}</td>
-                <td class="d-flex justify-content-center gap-2">
-                <button type="button" class="btn btn-primary btn-circle">
-                    <img src="ico-eye.png">
+        <tr *ngFor="let usuario of usuarios">
+            <td class="align-middle text-center">{{ usuario.nombreYapellido }}</td>
+            <td class="align-middle text-center">{{ usuario.dni }}</td>
+            <td class="align-middle text-center">{{ usuario.email ? usuario.email : '-' }}</td>
+            <td class="align-middle text-center">{{ usuario.telefono }}</td>
+            <td class="align-middle text-center">{{ usuario.rol.nombre }}</td>
+            <td class="align-middle text-center">{{ usuario.organizacion ? usuario.organizacion.nombre : '-' }}</td>
+            <td class="d-flex justify-content-center gap-2">
+                <button 
+                    [ngbTooltip]="usuario.activado ? 'Inhabilitar cuenta de usuario' : 'Habilitar cuenta de usuario'"
+                    type="button" 
+                    class="btn btn-primary btn-circle" 
+                    [disabled]="usuarioService.getLoggedUser().usuarioId == usuario.usuarioId"
+                    (click)="manageAccount(usuario)"
+                >
+                    <img [src]="usuario.activado ? 'ico-disable-user.png' : 'ico-enable-user.png'">
                 </button>
             </td>
         </tr>

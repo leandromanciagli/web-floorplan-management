@@ -40,7 +40,7 @@ export class UsuarioComponent {
   constructor(
     private store: Store,
     private swal: SweetAlertService,
-    private usuarioService: UsuarioService,
+    public usuarioService: UsuarioService,
     private rolService: RolService,
     private organizacionService: OrganizacionService,
   ) { 
@@ -102,6 +102,28 @@ export class UsuarioComponent {
         }
       }
     );
+  }
+
+  async manageAccount(usuario: any) {
+    let accion = usuario.activado ? 'inhabilitar' : 'habilitar'
+    const userChoise = await this.swal.displayQuestion('Estás por ' + accion + ' la cuenta de ' + usuario.nombreYapellido, '¿Estás seguro/a?')
+    if (userChoise.isConfirmed) {
+      this.store.dispatch(showLoader());
+      this.usuarioService.manageAccount(usuario.usuarioId, { activado: !usuario.activado }).subscribe(
+        {
+          next: async () => {
+            this.store.dispatch(hideLoader());
+            await this.swal.displaySuccessMessage(usuario.activado ? 'Cuenta de usuario inhabilitada' : 'Cuenta de usuario habilitada')
+            this.loadUsuarios()
+          },
+          error: async (e) => {
+            console.log(e);
+            this.store.dispatch(hideLoader());
+            await this.swal.displayErrorMessage()
+          }
+        }
+      );
+    }
   }
 
   async deleteUsuario(usuario: any) {
