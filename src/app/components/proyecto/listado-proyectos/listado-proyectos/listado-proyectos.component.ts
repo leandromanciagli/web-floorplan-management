@@ -64,6 +64,27 @@ export class ListadoProyectosComponent {
     );
   }
 
+  async aprobarProyecto(proyecto: any) {
+    const userChoise = await this.swal.displayQuestion("Aprobar proyecto de construcción", "¿Estás seguro/a?")
+    if (userChoise.isConfirmed) {
+      this.store.dispatch(showLoader());
+      this.proyectoService.aprobar(proyecto.proyectoId, { aprobado: true }).subscribe(
+        {
+          next: async () => {
+            this.store.dispatch(hideLoader());
+            await this.swal.displaySuccessMessage("Proyecto aprobado")
+            this.loadProyectos()
+          },
+          error: async (e) => {
+            console.log(e);
+            this.store.dispatch(hideLoader());
+            await this.swal.displayErrorMessage()
+          }
+        }
+      );
+    }
+  }
+
   async deleteProyecto(proyecto: any) {
     const userChoise = await this.swal.displayDeleteMessage("proyecto")
     if (userChoise.isConfirmed) {

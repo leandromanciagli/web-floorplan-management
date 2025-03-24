@@ -115,6 +115,7 @@
             <th class="text-center">Provincia</th>
             <th class="text-center">Ciudad</th>
             <th class="text-center">Ubicación</th>
+            <th class="text-center">Aprobado</th>
             <th class="text-center">Acciones</th>
         </tr>
     </thead>
@@ -126,11 +127,30 @@
             <td class="align-middle text-center">{{ proyecto.provincia.nombre }}</td>
             <td class="align-middle text-center">{{ proyecto.ciudad }}</td>
             <td class="align-middle text-center">{{ proyecto.ubicacion }}</td>
+            <td class="align-middle text-center">{{ proyecto.aprobado ? 'Si' : 'No' }}</td>
             <td class="d-flex justify-content-center gap-2">
                 <button type="button" class="btn btn-primary btn-circle" ngbTooltip="Ver detalles" placement="top" data-bs-dismiss="modal" (click)="openModalViewProyectoDeConstruccion(modalViewProyectoDeConstruccion, proyecto)">
                     <img src="ico-eye.png">
                 </button>
-                <button type="button" class="btn btn-circle btn-warning" placement="top" ngbTooltip="Eliminar proyecto de construcción" (click)="deleteProyecto(proyecto)">
+                <button 
+                    type="button" 
+                    class="btn btn-primary btn-circle" 
+                    ngbTooltip="Aprobar proyecto de construcción" 
+                    placement="top" 
+                    data-bs-dismiss="modal" 
+                    [disabled]="proyecto.aprobado"
+                    (click)="aprobarProyecto(proyecto)"
+                >
+                    <img src="ico-check.png">
+                </button>
+                <button 
+                    type="button" 
+                    class="btn btn-circle btn-warning" 
+                    placement="top" 
+                    ngbTooltip="Eliminar proyecto de construcción"
+                    [disabled]="proyecto.aprobado"
+                    (click)="deleteProyecto(proyecto)"
+                >
                     <img src="ico-delete.png">
                 </button>
             </td>

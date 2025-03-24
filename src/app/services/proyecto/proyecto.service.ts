@@ -24,6 +24,10 @@ export class ProyectoService {
     return this.http.put<any[]>(`${this.apiUrl}/proyecto/${id}`, proyecto).pipe(delay(500));
   }
 
+  aprobar(id: string, proyecto: any): Observable<any[]> {
+    return this.http.patch<any[]>(`${this.apiUrl}/proyecto/${id}`, proyecto).pipe(delay(500));
+  }
+
   delete(id: string): Observable<any[]> {
     return this.http.delete<any[]>(`${this.apiUrl}/proyecto/${id}`).pipe(delay(500));
   }
