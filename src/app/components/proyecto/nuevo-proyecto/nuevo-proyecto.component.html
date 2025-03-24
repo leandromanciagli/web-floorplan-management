@@ -60,7 +60,7 @@
                             </div>
                         </div>
                         <div class="col">
-                            <label for="ubicacion" class="form-label">Ubicación</label>
+                            <label for="ubicacion" class="form-label">Domicilio del inmueble</label>
                             <input type="text" class="form-control" id="ubicacion" formControlName="ubicacion">
                             <div *ngIf="proyecto.ubicacion.invalid && (proyecto.ubicacion.dirty || proyecto.ubicacion.touched)" class="alert">
                                 <div *ngIf="proyecto.ubicacion.hasError('required')">
@@ -135,7 +135,7 @@
             <!-- Formulario de propietario -->
             <ng-template ngbNavContent>
                 <div class="mt-3" formGroupName="propietario">
-                    <h5 class="my-4">Propietario</h5>
+                    <h5 class="my-4">Propietario del inmueble</h5>
                     <div class="row mb-3">
                         <div class="col">
                             <label for="apellido" class="form-label">Apellido</label>
@@ -173,7 +173,7 @@
                             </div>
                         </div>
                         <div class="col">
-                            <label for="domicilio" class="form-label">Domicilio</label>
+                            <label for="domicilio" class="form-label">Domicilio actual</label>
                             <input type="text" class="form-control" id="domicilio" formControlName="domicilio">
                             <div *ngIf="propietario.domicilio.invalid && (propietario.domicilio.dirty || propietario.domicilio.touched)" class="alert">
                                 <div *ngIf="propietario.domicilio.hasError('required')">
@@ -215,7 +215,8 @@
                 <form [formGroup]="proyectistaForm" autocomplete="off">
                     <div class="mt-3">
                         <h5 class="my-4">Proyectistas</h5>
-                        <div class="row mb-3">
+                        <span>Completá los datos de al menos un proyectista. Luego, presioná el botón "Guardar proyectista".</span>
+                        <div class="row my-3">
                             <div class="col">
                                 <label for="apellido" class="form-label">Apellido</label>
                                 <input type="text" class="form-control" id="apellido" formControlName="apellido">
@@ -296,7 +297,7 @@
                                 (click)="agregarProyectista()"
                             >
                                 <img src="ico-plus.png" style="width: 30px; height: auto;">
-                                <b>Agregar proyectista</b>
+                                <b>Guardar proyectista</b>
                             </button>
                         </div>
                         <!-- Listado de proyectistas -->

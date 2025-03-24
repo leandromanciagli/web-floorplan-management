@@ -33,7 +33,7 @@ export class OrganizacionComponent {
   organizacionForm = new FormGroup({
     nombre: new FormControl('', [Validators.required, Validators.minLength(2)]),
     direccion: new FormControl('', [Validators.required, Validators.minLength(2)]),
-    provincia: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    provincia: new FormControl('', [Validators.required]),
     ciudad: new FormControl('', [Validators.required, Validators.minLength(2)]),
     email1: new FormControl('', [Validators.email]),
     email2: new FormControl('', [Validators.email]),
@@ -103,7 +103,7 @@ export class OrganizacionComponent {
   manageOrganizacion() {
     let organizacion = {
       nombre: this.organizacionForm.value.nombre,
-      provincia: this.organizacionForm.value.provincia,
+      provinciaId: this.organizacionForm.value.provincia,
       ciudad: this.organizacionForm.value.ciudad,
       direccion: this.organizacionForm.value.direccion,
       email1: this.organizacionForm.value.email1,
@@ -185,7 +185,7 @@ export class OrganizacionComponent {
     this.organizacionIdSeleccionada = organizacion.organizacionId
     this.organizacionForm.patchValue({
       nombre: organizacion.nombre,
-      provincia: organizacion.provincia,
+      provincia: organizacion.provinciaId,
       ciudad: organizacion.ciudad,
       direccion: organizacion.direccion,
       email1: organizacion.email1,
@@ -201,7 +201,7 @@ export class OrganizacionComponent {
     this.organizacionForm = new FormGroup({
       nombre: new FormControl('', [Validators.required, Validators.minLength(2)]),
       direccion: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      provincia: new FormControl('', [Validators.required, Validators.minLength(2)]),
+      provincia: new FormControl('', [Validators.required]),
       ciudad: new FormControl('', [Validators.required, Validators.minLength(2)]),
       email1: new FormControl('', [Validators.email]),
       email2: new FormControl('', [Validators.email]),

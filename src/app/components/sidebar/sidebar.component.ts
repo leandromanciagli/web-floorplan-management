@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { UsuarioService } from '@services/usuario/usuario.service';
 
 
 @Component({
@@ -11,38 +12,39 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
-  loggedUser: any
-
   sections = [
     {
       title: 'Usuarios',
       iconUrl: '/ico-usuarios.png',
-      route: '/usuarios',
-      allowedRoles: ['ADMINISTRADOR']
+      route: '/spa/usuarios',
+      allowedRoles: ['SUPERADMIN', 'ADMINISTRADOR']
     },
     {
       title: 'Organizaciones',
       iconUrl: '/ico-organizaciones.png',
-      route: '/organizaciones',
-      allowedRoles: ['ADMINISTRADOR']
+      route: '/spa/organizaciones',
+      allowedRoles: ['SUPERADMIN', 'ADMINISTRADOR']
     },
     {
       title: 'Proyectos',
       iconUrl: '/ico-edificios.png',
-      route: '/listado-proyectos',
-      allowedRoles: ['CARGA_DE_PLANOS']
+      route: '/spa/listado-proyectos',
+      allowedRoles: ['SUPERADMIN', 'CARGA_DE_PLANOS']
     },
     {
       title: 'Nuevo Proyecto',
       iconUrl: '/ico-plans.png',
-      route: '/nuevo-proyecto',
-      allowedRoles: ['CARGA_DE_PLANOS']
+      route: '/spa/nuevo-proyecto',
+      allowedRoles: ['SUPERADMIN', 'CARGA_DE_PLANOS']
     },
   ]
 
+  loggedUser: any
+
+  constructor(private usuarioService: UsuarioService) { }
+
   ngOnInit(): void {
-    this.loggedUser = sessionStorage.getItem('loggedUser')
-    this.loggedUser = JSON.parse(this.loggedUser)
+    this.loggedUser = this.usuarioService.getLoggedUser()
   }
 
   get getSectionsByRol(): Array<any> {

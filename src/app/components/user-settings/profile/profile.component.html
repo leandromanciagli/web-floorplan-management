@@ -1,0 +1,117 @@
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+    <form [formGroup]="usuarioForm" (ngSubmit)="manageUsuario()" autocomplete="off">
+        <div class="d-flex flex-column gap-3">
+            <div class="row rounded shadow bg-main-color text-white p-4 mb-3">
+                <div class="col">
+                    <h5><b>Información sobre roles para las pruebas:</b></h5>
+                    <ul class="m-0">
+                        <li><span><b>Carga de planos</b>: Crea proyectos de construcción para su organización asociada. Visualiza sus proyectos creados. Elimina proyectos</span></li>
+                        <li><span><b>Administrador</b>: Gestiona usuarios y organizaciones. No posee una organización asociada.</span></li>
+                        <li><span><b>Super administrador</b>: Puede realizar todas las acciones del administrador y carga de planos. Tiene una organización asociada.</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <ng-container *ngIf="!isUpdate; else updateTitle">
+                    <h2 class="m-0 main-color"><b>Completar datos de perfil</b></h2>
+                </ng-container>
+                <ng-template #updateTitle>
+                    <h2 class="m-0 main-color"><b>Configuración de perfil</b></h2>
+                </ng-template>
+            </div>
+            <div class="d-flex justify-content-evenly">
+                <div>
+                    <img [src]="profilePicture.value" style="border-radius: 50%; width: 80px; height: auto;">
+                </div>
+                <div class="d-flex flex-column gap-3" style="width: 870px">
+                    <div class="row">
+                        <div class="col">
+                            <label for="nombreYapellido" class="form-label">Nombre y apellido</label>
+                            <input type="text" class="form-control" id="nombreYapellido" formControlName="nombreYapellido">
+                            <div *ngIf="nombreYapellido.invalid && (nombreYapellido.dirty || nombreYapellido.touched)" class="alert">
+                                <div *ngIf="nombreYapellido.hasError('required')">
+                                    El nombre es requerido.
+                                </div>
+                                <div *ngIf="nombreYapellido.hasError('minlength')">
+                                    El nombre debe contener al menos 2 caracteres.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" formControlName="email" [readonly]="readonlyEmail">
+                            <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert">
+                                <div *ngIf="email.hasError('required')">
+                                    El email es requerido.
+                                </div>
+                                <div *ngIf="email.hasError('email')">
+                                    El email es inválido.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="dni" class="form-label">DNI</label>
+                            <input type="text" class="form-control" id="dni" formControlName="dni">
+                            <div *ngIf="dni.invalid && (dni.dirty || dni.touched)" class="alert">
+                                <div *ngIf="dni.hasError('required')">
+                                    El DNI es requerido.
+                                </div>
+                                <div *ngIf="dni.hasError('pattern')">
+                                    El DNI sólo puede contener números.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <label for="telefono" class="form-label">Teléfono</label>
+                            <input type="text" class="form-control" id="telefono" formControlName="telefono">
+                            <div *ngIf="telefono.invalid && (telefono.dirty || telefono.touched)" class="alert">
+                                <div *ngIf="telefono.hasError('required')">
+                                    El teléfono es requerido.
+                                </div>
+                                <div *ngIf="telefono.hasError('pattern')">
+                                    El teléfono sólo puede contener números.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label for="rol" class="form-label">Rol</label>
+                            <select class="form-select" id="rol" formControlName="rol">
+                                <option *ngFor="let rol of roles" [value]="rol.rolId">{{ rol.nombre }}</option>
+                            </select>
+                            <div *ngIf="rol.invalid && (rol.dirty || rol.touched)" class="alert">
+                                <div *ngIf="rol.hasError('required')">
+                                    El rol es requerido.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col" *ngIf="rol.value == 'CARGA_DE_PLANOS' || rol.value == 'SUPERADMIN'">
+                            <label for="organizacion" class="form-label">Organización</label>
+                            <select class="form-select" id="organizacion" formControlName="organizacion">
+                                <option *ngFor="let organizacion of organizaciones" [value]="organizacion.organizacionId">{{ organizacion.nombre }}</option>
+                            </select>
+                            <div *ngIf="organizacion.invalid && (organizacion.dirty || organizacion.touched)" class="alert">
+                                <div *ngIf="organizacion.hasError('required')">
+                                    La organizacion es requerida.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="d-flex justify-content-end align-items-center gap-3">
+                            <a class="link-secondary" style="cursor: pointer" *ngIf="!isUpdate" (click)="authService.logout()">
+                                Salir
+                            </a>
+                            <button type="submit" class="btn btn-primary" ngbAutofocus [disabled]="!usuarioForm.valid">
+                                Guardar perfil
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

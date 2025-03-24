@@ -7,14 +7,14 @@ import { AuthGuard } from '@guards/auth.guard';
 import { ProyectoComponent } from '@components/proyecto/nuevo-proyecto/nuevo-proyecto.component';
 import { ListadoProyectosComponent } from '@components/proyecto/listado-proyectos/listado-proyectos/listado-proyectos.component';
 import { CallbackComponent } from '@components/callback/callback.component';
+import { ProfileComponent } from '@components/user-settings/profile/profile.component';
 
 
 export const routes: Routes =
     [
-        
-        { path: 'callback', component: CallbackComponent },
-        { path: '', redirectTo: 'callback', pathMatch: 'full' },
         { path: 'login', component: LoginComponent },
+        { path: 'callback', component: CallbackComponent },
+        { path: 'profile', component: ProfileComponent },
         { 
             path: 'spa', 
             component: HomeComponent, 
@@ -24,7 +24,9 @@ export const routes: Routes =
                 { path: 'organizaciones', component: OrganizacionComponent },
                 { path: 'nuevo-proyecto', component: ProyectoComponent },
                 { path: 'listado-proyectos', component: ListadoProyectosComponent },
+                { path: 'profile', component: ProfileComponent },
             ]
         },
+        { path: '', redirectTo: 'callback', pathMatch: 'full' },
         { path: '**', redirectTo: 'callback', pathMatch: 'full' }
     ];

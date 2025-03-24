@@ -39,8 +39,7 @@
                     </div>
                 </div>
             </div>
-
-            <!-- <div class="row">
+            <div class="row">
                 <div class="col">
                     <label for="provincia" class="form-label">Provincia</label>
                     <select class="form-select" id="provincia" formControlName="provincia">
@@ -49,32 +48,6 @@
                     <div *ngIf="provincia.invalid && (provincia.dirty || provincia.touched)" class="alert">
                         <div *ngIf="provincia.hasError('required')">
                             La provincia es requerida.
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <label for="ciudad" class="form-label">Ciudad</label>
-                    <select class="form-select" id="ciudad" formContciudadName="ciudad">
-                        <option *ngFor="let ciudad of ciudades" [value]="ciudad.ciudadId">{{ ciudad.nombre }}</option>
-                    </select>
-                    <div *ngIf="ciudad.invalid && (ciudad.dirty || ciudad.touched)" class="alert">
-                        <div *ngIf="ciudad.hasError('required')">
-                            La ciudad es requerida.
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
-            <div class="row">
-                <div class="col">
-                    <label for="provincia" class="form-label">Provincia</label>
-                    <input type="text" class="form-control" id="provincia" formControlName="provincia">
-                    <div *ngIf="provincia.invalid && (provincia.dirty || provincia.touched)" class="alert">
-                        <div *ngIf="provincia.hasError('required')">
-                            La provincia es requerida.
-                        </div>
-                        <div *ngIf="provincia.hasError('minlength')">
-                            La provincia debe contener al menos 2 caracteres.
                         </div>
                     </div>
                 </div>
@@ -171,7 +144,7 @@
             <td class="align-middle text-center">{{ organizacion.nombre }}</td>
             <td class="align-middle text-center">{{ organizacion.direccion }}</td>
             <td class="align-middle text-center">{{ organizacion.ciudad }}</td>
-            <td class="align-middle text-center">{{ organizacion.provincia}}</td>
+            <td class="align-middle text-center">{{ organizacion.provincia.nombre }}</td>
             <td class="d-flex justify-content-center gap-2">
                 <!-- <button type="button" class="btn btn-primary btn-circle" data-bs-dismiss="modal">
                     <img src="ico-view.png">

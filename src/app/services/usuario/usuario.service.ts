@@ -16,18 +16,8 @@ export class UsuarioService {
     return this.http.get<any[]>(`${this.apiUrl}/usuarios`).pipe(delay(500));
   }
 
-  findByEmailTelefonoOrUsername(filter: any): Observable<any[]> {
-    let params = ''
-    if (filter.email) {
-      params = params + `email=${filter.email}&`
-    }
-    if (filter.telefono) {
-      params = params + `telefono=${filter.telefono}&`
-    }
-    if (filter.username) {
-      params = params + `username=${filter.username}`
-    }
-    return this.http.get<any[]>(`${this.apiUrl}/usuarios/autenticate?${params}`).pipe(delay(500));
+  findBySub(sub: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/usuarios/sub/${sub}`).pipe(delay(500));
   }
 
   create(usuario: any): Observable<any[]> {
@@ -35,10 +25,15 @@ export class UsuarioService {
   }
 
   update(id: string, usuario: any): Observable<any[]> {
-    return this.http.put<any[]>(`${this.apiUrl}/usuarios/${id}`, usuario).pipe(delay(500));
+    return this.http.patch<any[]>(`${this.apiUrl}/usuarios/${id}`, usuario).pipe(delay(500));
   }
 
   delete(id: string): Observable<any[]> {
     return this.http.delete<any[]>(`${this.apiUrl}/usuarios/${id}`).pipe(delay(500));
+  }
+
+  getLoggedUser() {
+    let loggedUser = sessionStorage.getItem('loggedUser')
+    return  JSON.parse(loggedUser!)
   }
 }

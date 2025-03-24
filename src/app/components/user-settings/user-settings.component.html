@@ -6,15 +6,19 @@
         aria-expanded="false"
     >
         <div class="d-flex flex-column" *ngIf="loggedUser">
-            <span class="main-color"><b>¡Hola, {{ loggedUser.nombre }} {{ loggedUser.apellido }}!</b></span>
-            <span class="main-color" *ngIf="loggedUser?.rol">{{ loggedUser.organizacion.nombre }}</span>
+            <span class="main-color"><b>¡Hola, {{ loggedUser.nombreYapellido }}!</b></span>
             <span class="main-color" *ngIf="loggedUser?.rol">{{ loggedUser.rol.nombre }}</span>
+            <span class="main-color" *ngIf="loggedUser?.organizacion">{{ loggedUser.organizacion.nombre }}</span>
+        </div>
+        <div *ngIf="loggedUser">
+            <img [src]="loggedUser.profilePicture" style="border-radius: 50%; width: 80px; height: auto;">
         </div>
         <div>
             <img src="drop-down-arrow.png" style="width: 20px; height: auto;">
         </div>
     </button>
-    <ul class="dropdown-menu" >
+    <ul class="dropdown-menu">
+        <li><a class="d-flex justify-content-center dropdown-item" href="javascript:void(0)" (click)="router.navigate(['spa/profile'], { queryParams: { isUpdate: true } })">Configuración de perfil</a></li>
         <li><a class="d-flex justify-content-center dropdown-item" href="#" (click)="logOut()">Cerrar Sesión</a></li>
     </ul>
 </div>

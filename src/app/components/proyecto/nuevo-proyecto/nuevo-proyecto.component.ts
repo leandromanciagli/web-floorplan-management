@@ -11,6 +11,7 @@ import { TipoPersonaService } from '@services/tipo-persona/tipo-persona.service'
 import { ProvinciaService } from '@services/provincia/provincia.service';
 import { ProyectoService } from '@services/proyecto/proyecto.service';
 import { PlanosComponent } from './planos/planos.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -52,6 +53,7 @@ export class ProyectoComponent {
     private provinciaService: ProvinciaService,
     private proyectoService: ProyectoService,
     private formBuilder: FormBuilder,
+    public router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -217,6 +219,7 @@ export class ProyectoComponent {
             next: async () => {
               this.store.dispatch(hideLoader());
               await this.swal.displaySuccessMessage("Proyecto creado correctamente")
+              this.router.navigate(['/spa/listado-proyectos']);
             },
             error: async (e) => {
               console.log(e);

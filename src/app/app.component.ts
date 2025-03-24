@@ -41,9 +41,5 @@ export class AppComponent {
   ngOnInit(): void {
     this.tooltipConfig.triggers = 'hover'
     this.ngbNavConfig.destroyOnHide = false
-
-    // this.authService.isAuthenticated$.subscribe((authStatus) => {
-    //   console.log('Estado de autenticación:', authStatus);
-    // });
   }
 }
